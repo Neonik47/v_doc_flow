@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-VDocFlow::Application.load_tasks
+Df::Application.load_tasks

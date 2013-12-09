@@ -37,12 +37,5 @@ class User
 
   ## Token authenticatable
   # field :authentication_token, :type => String
-
-  field :name
-  field :role, type: Integer, default: 1
-
-  validates_presence_of :encrypted_password
-  validates_presence_of :email
-  validates_presence_of :name
-
+  field :name, type: String
 end
