@@ -1,4 +1,4 @@
-Df::Application.routes.draw do
+VDocFlow::Application.routes.draw do
   devise_for :users
 
   resources :users
