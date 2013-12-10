@@ -9,7 +9,7 @@ class User
   ## Database authenticatable
   field :email,              :type => String, :default => ""
   field :encrypted_password, :type => String, :default => ""
-  
+
   ## Recoverable
   field :reset_password_token,   :type => String
   field :reset_password_sent_at, :type => Time
@@ -38,4 +38,6 @@ class User
   ## Token authenticatable
   # field :authentication_token, :type => String
   field :name, type: String
+  field :post, type: String
+  field :role, type: Integer
 end

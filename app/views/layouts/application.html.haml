@@ -1,0 +1,17 @@
+
+
+!!!
+%html
+  %head
+    %title
+      = t('page_title', :scope => @page_scope)
+      ·
+      = t('app_title.html', :scope => 'header')
+    = stylesheet_link_tag "application", :media => "all"
+    = csrf_meta_tags
+  %body.application-layout
+    .wrapper
+      %section.content.container
+        = render partial: "layouts/bootstrap_flash", locals: {flash: flash}
+        = yield
+    = javascript_include_tag "application"
