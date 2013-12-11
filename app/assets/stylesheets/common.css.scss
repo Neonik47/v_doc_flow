@@ -1,0 +1,316 @@
+@font-face {
+  font-family: 'Glyphicons Halflings';
+  src: font-url('glyphicons-halflings-regular.eot');
+  src: url(font-path('glyphicons-halflings-regular.eot')+'?#iefix') format('embedded-opentype'), font-url('glyphicons-halflings-regular.woff') format('woff'), font-url('glyphicons-halflings-regular.ttf') format('truetype'), url(font-path('glyphicons-halflings-regular.svg')+'#glyphicons-halflingsregular') format('svg');
+}
+
+.alert ul{
+  margin-bottom: 0 !important;
+}
+.modal-medium{
+  width: 900px;
+}
+.field_with_errors {
+  /*border-bottom: 1px solid red;*/
+  color: red;
+}
+
+/* Хитрый как! Вставляем &nbsp; чтобы не схолопывались dd */
+.dl-horizontal {
+  dt {
+    width: 200px;
+  }
+  dd {
+    margin-left: 220px;
+
+    &:after {
+      content: '\0000a0';
+    }
+  }
+}
+
+.dl-data {
+  dt {
+    width: auto;
+    margin-right: 15px;
+  }
+  dd {
+    margin-left: 0;
+  }
+}
+
+dt {
+  .accordion-toggle {
+    color: #333;
+  }
+
+  .accordion-toggle {
+    &.collapsed {
+      .glyphicon-resize-vertical {
+        &:before {
+          content: "";
+        }
+      }
+    }
+  }
+}
+
+.pagination {
+  margin: 20px 0 0 0;
+}
+
+.footer-separator {
+  clear: both;
+}
+
+[role=person-navigation]{
+  position:fixed;
+  background:#fff;
+  z-index:100;
+  width:263px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.panel-heading {
+  h3 {
+    margin-bottom: 0;
+    line-height: 34px;
+  }
+}
+
+.pagination{
+  overflow: hidden;
+
+  > li {
+    list-style: none;
+    float: left;
+  }
+}
+
+.panel {
+  dt, dd{
+    line-height: 14px;
+  }
+}
+
+html, body {
+  height: 100%;
+  margin: 0
+}
+h1{
+  margin-bottom: 20px;
+  font-size: 30px;
+}
+h3{
+  margin: 0 0 20px;
+  font-size: 21px;
+}
+.block{
+  margin-bottom: 20px;
+}
+.wrapper {
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  margin: 0 auto -40px;
+}
+.application-layout .content{
+  padding-bottom: 80px;
+  padding-top: 70px;
+}
+.person-layout .content{
+  padding-top: 50px;
+}
+.fixed{
+  position:fixed;
+  background:#fff;
+  z-index:100;
+}
+.fixed-header{
+  padding-top: 20px;
+}
+footer {
+  clear:both;
+  height: 40px;
+  background-color: #f5f5f5;
+  border-top: 1px #d4d4d4 solid;
+
+  p {
+    margin-top: 10px;
+    color: #999;
+  }
+}
+
+.breadcrumb{
+  background: none;
+  border:1px solid #eee;
+}
+
+.page-header{
+  margin-top: 0;
+}
+.page-header h1{
+  margin-bottom: 0;
+}
+.navbar{
+  margin-bottom: 0;
+  -webkit-box-shadow:  0px 1px 4px 0px rgba(0, 0, 0, 0.3);
+  box-shadow:  0px 1px 4px 0px rgba(0, 0, 0, 0.3);
+}
+.nav-tabs.nav-justified{
+  margin-bottom: 20px;
+}
+.nav-justified > li > a{
+  padding: 10px 0;
+  white-space: nowrap;
+}
+.filter{
+  background: #F5F5F5;
+}
+.table  dl{
+  margin: 0;
+}
+.table  dl dt{
+  float: left;
+  clear: left;
+  margin: 0 15px 5px 0;
+  font-weight: bold;
+}
+.table dl dd{
+  margin-bottom: 5px;
+  font-weight: normal;
+}
+
+
+/* Forms */
+.control-label:after, .form-inline label:after{
+  content: ":";
+}
+.multiline-label{
+  line-height: 17px;
+  padding-top: 0 !important;
+}
+.input-group.datepicker{
+  padding: 0;
+}
+.form-inline .input-group.datepicker{
+  display: inline-block;
+  margin-right:10px;
+  padding: 0;
+  vertical-align: middle;
+}
+.form-inline .datepicker .form-control{
+  width: 120px;
+  float: left;
+}
+.form-inline .datepicker .input-group-addon{
+  width: 38px;
+  height: 34px;
+  line-height: 22px;
+  float: right;
+  cursor: pointer;
+}
+.form-inline > .form-control, .form-inline label{
+  margin-right:10px;
+}
+[class*=col-] .help-block, .dl-horizontal{
+  margin-bottom: 0;
+}
+.btn-group.bootstrap-select:not([class*="col-"]){
+    width: 255px;
+}
+.bootstrap-select[class*="col-"]{
+  padding-left: 0;
+}
+.form-inline [class*=col-]{
+  float: none;
+  display: inline-block;
+}
+.form-control.col-lg-1 {
+    width: 8.33333%;
+}
+.form-control.col-lg-2 {
+    width: 16.6667%;
+}
+.form-control.col-lg-3 {
+    width: 25%;
+}
+.form-control.col-lg-4 {
+    width: 33.3333%;
+}
+.form-control.col-lg-5 {
+    width: 41.6667%;
+}
+.form-control.col-lg-6 {
+    width: 50%;
+}
+.form-control.col-lg-7 {
+    width: 58.3333%;
+}
+.form-control.col-lg-8 {
+    width: 66.6667%;
+}
+.form-control.col-lg-9 {
+    width: 75%;
+}
+.form-control.col-lg-10 {
+    width: 83.3333%;
+}
+.form-control.col-lg-11 {
+    width: 91.6667%;
+}
+
+
+/* Table */
+.table-bordered{
+  border-collapse: separate;
+  border: none;
+}
+.table-bordered thead th{
+  border-bottom-width:1px !important;
+  border-top:1px solid #ddd !important;
+  background: #fff;
+}
+.table-bordered thead th, .navbar{
+  background: -moz-linear-gradient(top,  #fff 1%, #e6e6e6 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#fff), color-stop(100%,#e6e6e6));
+  background: -webkit-linear-gradient(top,  #fff 1%,#e6e6e6 100%);
+  background: -o-linear-gradient(top,  #fff 1%,#e6e6e6 100%);
+  background: -ms-linear-gradient(top,  #fff 1%,#e6e6e6 100%);
+  background: linear-gradient(to bottom,  #fff 1%,#e6e6e6 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fff', endColorstr='#e6e6e6',GradientType=0 );
+}
+.table-bordered thead th:first-child{
+  border-top-left-radius: 4px;
+}
+.table-bordered thead th:last-child{
+  border-top-right-radius: 4px;
+}
+.table-bordered tbody tr:last-child > td:first-child{
+  border-bottom-left-radius: 4px;
+}
+.table-bordered tbody tr:last-child > td:last-child{
+  border-bottom-right-radius: 4px;
+}
+.table-bordered tbody td, .table-bordered thead th{
+  border-right-width: 0 !important;
+  vertical-align: middle !important;
+}
+.table-bordered tbody tr td:last-child, .table-bordered thead th:last-child{
+  border-right-width: 1px !important;
+}
+.table-bordered tbody td{
+  border-top: none !important;
+}
+.table-bordered thead th{
+  border-bottom-width:1px !important;
+}
+
+/* Buttons */
+.btn-group{
+  white-space: nowrap;
+  font-size: 0;
+}
+.btn-group .btn{
+  float: none;
+}
