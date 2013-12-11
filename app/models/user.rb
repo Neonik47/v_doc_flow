@@ -8,8 +8,9 @@ class User
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+  devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable
+  # devise :database_authenticatable, :registerable,
+         # :recoverable, :rememberable, :trackable, :validatable
 
   ## Database authenticatable
   field :email,              :type => String, :default => ""
@@ -46,7 +47,7 @@ class User
   field :name, type: String
   field :post, type: String
   field :role, type: Integer
-  field :status, type: Integer
+  field :status, type: Integer, default: 0
 
   def admin?
   	role == 0
@@ -58,6 +59,6 @@ class User
   end
 
   def human_role
-  	ROLES[role] || "UNDEFINED"
+  	(role && ROLES[role]) ? ROLES[role] : "UNDEFINED"
   end
 end
