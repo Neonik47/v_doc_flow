@@ -1,5 +1,10 @@
 class User
   include Mongoid::Document
+
+  POSTS = %w(Администратор Пользователь)
+
+  ROLES = %w(Администратор Пользователь)
+
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
@@ -37,7 +42,22 @@ class User
 
   ## Token authenticatable
   # field :authentication_token, :type => String
+  
   field :name, type: String
   field :post, type: String
   field :role, type: Integer
+  field :status, type: Integer
+
+  def admin?
+  	role == 0
+  end
+
+  def human_post
+  	# POSTS[post] || "UNDEFINED"
+  	"POSTS UNDEFINED"
+  end
+
+  def human_role
+  	ROLES[role] || "UNDEFINED"
+  end
 end

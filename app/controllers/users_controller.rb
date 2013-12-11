@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_filter :check_admin!, except: :show
   # GET /users
   # GET /users.json
   def index
@@ -14,7 +15,8 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     @user = User.find(params[:id])
-
+    # flash[:notice] = "wohoo"
+    # flash[:alert] = "d'oh"
     respond_to do |format|
       format.html
       format.json { render json: @user }
@@ -79,5 +81,11 @@ class UsersController < ApplicationController
       format.html { redirect_to users_url }
       format.json { head :no_content }
     end
+  end
+
+  private
+
+  def check_admin!
+    current_user.admin?
   end
 end

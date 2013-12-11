@@ -1,6 +1,14 @@
-%p#notice= notice
 %p
-  %b Name:
+  %b Имя:
   = @user.name
+%p
+  %b Email:  
+  = @user.email
+%p
+  %b Должность:  
+  = @user.human_post
+%p
+  %b Роль:  
+  = @user.human_role
 = link_to 'Edit', edit_user_path(@user)
 = link_to 'Back', users_path
