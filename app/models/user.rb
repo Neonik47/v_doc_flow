@@ -1,16 +1,18 @@
 class User
   include Mongoid::Document
 
-  POSTS = %w(Администратор Пользователь)
-
-  ROLES = %w(Администратор Пользователь)
+  ROLES = {
+  	"dep_head" => "Начальник отдела", "deputy_head" => "Заместитель начальника", 
+  	"group_head" => "Начальник группы", "engineer" => "Инженер",
+  	"secretary" => "Секретарь", "admin" => "Администратор"
+  }
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable
   # devise :database_authenticatable, :registerable,
-         # :recoverable, :rememberable, :trackable, :validatable
+  #        :recoverable, :rememberable, :trackable, :validatable
 
   ## Database authenticatable
   field :email,              :type => String, :default => ""
@@ -45,20 +47,20 @@ class User
   # field :authentication_token, :type => String
   
   field :name, type: String
-  field :post, type: String
-  field :role, type: Integer
+  # field :post, type: String
+  field :role, type: String
   field :status, type: Integer, default: 0
 
   def admin?
-  	role == 0
+  	role == "admin"
   end
 
-  def human_post
-  	# POSTS[post] || "UNDEFINED"
-  	"POSTS UNDEFINED"
-  end
+  # def human_post
+  # 	# POSTS[post] || "UNDEFINED"
+  # 	"POSTS UNDEFINED"
+  # end
 
   def human_role
-  	(role && ROLES[role]) ? ROLES[role] : "UNDEFINED"
+  	ROLES[role] || "Role #{role} undefined!"
   end
 end

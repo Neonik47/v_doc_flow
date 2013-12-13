@@ -15,13 +15,12 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
-  # GET /users/1/edit
   def edit
   end
 
   def create
     @user = User.new(params[:user])
-    p = SecureRandom.urlsafe_base64(10)
+    p = SecureRandom.urlsafe_base64(10) #like "v_2avsdlnN2a7w"
     @user.password = p
     if @user.save
       redirect_to @user, notice: "Пользователь успешно создан.<br>Пароль пользователя <strong>'#{p}'</strong> (без кавычек)".html_safe
@@ -31,13 +30,11 @@ class UsersController < ApplicationController
   end
 
   def update
-
     if @user.update_attributes(params[:user])
       redirect_to @user, notice: 'User was successfully updated.'
     else
       render action: "edit"
     end
-
   end
 
   def destroy

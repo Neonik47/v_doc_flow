@@ -15,5 +15,13 @@
     = f.label :email
     %br
     = f.email_field :email
+  .field
+    = f.label :role
+    %br
+    = f.select :role, options_for_select(User::ROLES.map{|role, name| [name, role]}), class: 'col-lg-6'
+
+    -#= f.select(:role,User.all.map{|x| [x,id]}
+    -# = select_tag(:role, options_for_select(User::ROLES.map{|role, name| [name, role]}))
+    -# = f.select(:role,options_for_select(User::ROLES.map{|role, name| [name, role]}))
   .actions
     = f.submit
