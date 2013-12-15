@@ -2,13 +2,13 @@
   %b Имя:
   = @user.name
 %p
-  %b Email:  
+  %b Email:
   = @user.email
 %p
-  %b Должность:  
-  = @user.human_post
-%p
-  %b Роль:  
+  %b Роль:
   = @user.human_role
+%p
+  %b Статус:
+  = @user.status
 = link_to 'Edit', edit_user_path(@user)
 = link_to 'Back', users_path

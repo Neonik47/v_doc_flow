@@ -2,7 +2,7 @@ class User
   include Mongoid::Document
 
   ROLES = {
-  	"dep_head" => "Начальник отдела", "deputy_head" => "Заместитель начальника", 
+  	"dep_head" => "Начальник отдела", "deputy_head" => "Заместитель начальника",
   	"group_head" => "Начальник группы", "engineer" => "Инженер",
   	"secretary" => "Секретарь", "admin" => "Администратор"
   }
@@ -45,7 +45,7 @@ class User
 
   ## Token authenticatable
   # field :authentication_token, :type => String
-  
+
   field :name, type: String
   # field :post, type: String
   field :role, type: String
