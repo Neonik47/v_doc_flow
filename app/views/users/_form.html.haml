@@ -18,11 +18,8 @@
   .field
     = f.label :role
     %br
-    = f.select :role, options_for_select(User::ROLES.map{|role, name| [name, role]}, selected: @user.try(:role)), class: 'col-lg-6'
+    = f.select :role, options_for_select(User::Defines::ROLES.map{|role, name| [name, role]}, selected: @user.try(:role)), class: 'col-lg-6'
 
-    -#= f.select(:role,User.all.map{|x| [x,id]}
-    -# = select_tag(:role, options_for_select(User::ROLES.map{|role, name| [name, role]}))
-    -# = f.select(:role,options_for_select(User::ROLES.map{|role, name| [name, role]}))
   .actions
     = f.submit t("save"), class: 'btn btn-success'
     = link_to t("back"), users_path, class: "btn btn-primary"

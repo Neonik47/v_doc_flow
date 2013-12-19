@@ -1,6 +1,6 @@
 require 'securerandom'
 class UsersController < ApplicationController
-  before_filter :set_user, only: [:show, :edit, :update, :destroy]
+  before_filter :set_user, only: [:show, :edit, :update, :toggle_status, :destroy]
   before_filter :check_admin!, except: :show
   before_filter :check_access!, only: :edit
 
@@ -37,21 +37,34 @@ class UsersController < ApplicationController
     end
   end
 
+  def toggle_status
+    if params[:s] == '0'
+      status = "disabled"
+    elsif params[:s] == '1'
+      status = "enabled"
+    else
+      redirect_to :back, alert: "Некорректный параметр для смены статуса!" and return
+    end
+    @user.status = status
+    @user.save!
+    redirect_to :back, notice: "Статус пользователя изменен!"
+  end
+
   def destroy
     @user.destroy
-    redirect_to users_url 
+    redirect_to users_url
   end
 
   protected
-  
+
   def check_admin!
     redirect_to :back, alert: 'Only admins allowed!' and return unless current_user.admin?
-  end 
+  end
 
   def check_access!
     redirect_to :back, alert: 'Only owner or admins allowed!' and return unless (current_user.id == @user.id or current_user.admin?)
   end
-  
+
   private
 
   def set_user

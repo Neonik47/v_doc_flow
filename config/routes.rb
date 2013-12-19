@@ -1,7 +1,11 @@
 VDocFlow::Application.routes.draw do
   devise_for :users
 
-  resources :users
+  resources :users do
+    member do
+      get 'toggle_status'
+    end
+  end
 
 
   # The priority is based upon order of creation:

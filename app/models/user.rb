@@ -1,11 +1,25 @@
 class User
   include Mongoid::Document
 
-  ROLES = {
-  	"dep_head" => "Начальник отдела", "deputy_head" => "Заместитель начальника",
-  	"group_head" => "Начальник группы", "engineer" => "Инженер",
-  	"secretary" => "Секретарь", "admin" => "Администратор"
-  }
+
+  module Defines
+    ROLES = {
+    	"dep_head" => "Начальник отдела", "deputy_head" => "Зам. начальника отдела",
+    	"group_head" => "Начальник группы", "engineer" => "Инженер",
+    	"secretary" => "Секретарь", "admin" => "Администратор"
+    }
+
+    STATUSES = {
+      "not_activated" => "Не активирован",
+      "enabled" => "Активен", "disabled" => "Заблокирован",
+      "deleted" => "Удален"
+    }
+  end
+
+  scope :admins, where(:role => "admin").order_by(:name => 1)
+  scope :simple_users, where(:role.ne => "admin").order_by(:name => 1)
+  scope :exists, where(:status.ne => "deleted").order_by(:name => 1)
+  scope :deleted, where(:status => "deleted").order_by(:name => 1)
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
@@ -49,10 +63,14 @@ class User
   field :name, type: String
   # field :post, type: String
   field :role, type: String
-  field :status, type: Integer, default: 0
+  field :status, type: String, default: "not_activated"
 
   def admin?
   	role == "admin"
+  end
+
+  def enabled?
+    status == "enabled"
   end
 
   # def human_post
@@ -61,6 +79,10 @@ class User
   # end
 
   def human_role
-  	ROLES[role] || "Role #{role} undefined!"
+    Defines::ROLES[role] || "Role #{role} undefined!"
+  end
+
+  def human_status
+  	Defines::STATUSES[status] || "Status #{status} undefined!"
   end
 end
