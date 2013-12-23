@@ -1,4 +1,10 @@
 VDocFlow::Application.routes.draw do
+  resources :docs
+
+
+  resources :doc_types
+
+
   devise_for :users
 
   resources :users do
