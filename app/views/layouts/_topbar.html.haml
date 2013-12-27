@@ -13,6 +13,10 @@
           = link_to users_path do
             %span.glyphicon.glyphicon-list
             = t('.users')
+        %li
+          = link_to doc_types_path do
+            %span.glyphicon.glyphicon-list
+            = t('.doc_types')
       %ul.nav.navbar-nav.navbar-right
         -if user_signed_in?
           %li.dropdown

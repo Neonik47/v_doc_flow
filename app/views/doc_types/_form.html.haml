@@ -1,10 +1,20 @@
-= form_for @doc_type do |f|
+= form_for(@doc_type) do |f|
   - if @doc_type.errors.any?
     #error_explanation
-      %h2= "#{pluralize(@doc_type.errors.count, "error")} prohibited this doc_type from being saved:"
+      %h2
+        = pluralize(@doc_type.errors.count, "error")
+        prohibited this doc_type from being saved:
       %ul
         - @doc_type.errors.full_messages.each do |msg|
           %li= msg
+  .field
+    = f.label :name
+    %br
+    = f.text_field :name
+  = f.fields_for :doc_fields do |field|
+    = render "doc_field_fields", :f => field
+  %p= link_to_add_fields "Добавить поле", f, :doc_fields
 
   .actions
-    = f.submit 'Save'
+    = f.submit t("save"), class: 'btn btn-success'
+    = link_to t("back"), doc_types_path, class: "btn btn-primary"

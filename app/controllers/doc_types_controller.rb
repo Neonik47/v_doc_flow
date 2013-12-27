@@ -12,12 +12,15 @@ class DocTypesController < ApplicationController
 
   def new
     @doc_type = DocType.new
+    @doc_type.doc_fields.push(DocType.empty_field)
+    @doc_type.doc_fields.push(DocType.empty_field)
   end
 
   def edit
   end
 
   def create
+    raise params
     @doc_type = DocType.new(params[:doc_type])
     if @doc_type.save
       redirect_to @doc_type, notice: 'Doc type was successfully created.'

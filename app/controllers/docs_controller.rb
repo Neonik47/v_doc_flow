@@ -1,6 +1,6 @@
 class DocsController < ApplicationController
 
-  # before_filter :check_admin!, except: :show
+  before_filter :check_admin!, except: :show
   before_filter :set_doc, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -37,6 +37,12 @@ class DocsController < ApplicationController
   def destroy
     @doc.destroy
     redirect_to docs_url
+  end
+
+  protected
+
+  def check_admin!
+    redirect_to :back, alert: 'Only admins allowed!' and return unless current_user.admin?
   end
 
   private

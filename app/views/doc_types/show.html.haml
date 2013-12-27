@@ -1,6 +1,8 @@
-%p#notice= notice
-
+%p
+  %b Название:
+  = @doc_type.name
+-@doc_type.doc_fields.each do |field|
+  =render partial: 'doc_field', locals: {field: field}
 
 = link_to 'Edit', edit_doc_type_path(@doc_type)
-\|
 = link_to 'Back', doc_types_path
