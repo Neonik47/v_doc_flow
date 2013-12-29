@@ -12,16 +12,16 @@ class DocTypesController < ApplicationController
 
   def new
     @doc_type = DocType.new
-    @doc_type.doc_fields.push(DocType.empty_field)
-    @doc_type.doc_fields.push(DocType.empty_field)
   end
 
   def edit
   end
 
   def create
-    raise params
+    # raise params
     @doc_type = DocType.new(params[:doc_type])
+    lines = params["lines"].map{|line| parse_line(line)}.compact
+    @doc_type.doc_fields = lines
     if @doc_type.save
       redirect_to @doc_type, notice: 'Doc type was successfully created.'
     else
@@ -52,5 +52,10 @@ class DocTypesController < ApplicationController
 
   def set_doc_type
     @doc_type = DocType.find(params[:id])
+  end
+
+  def parse_line(line)
+    return nil if line.delete("_destroy")
+    return line
   end
 end

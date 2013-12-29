@@ -1,0 +1,8 @@
+.line{id: "lines_#{rand(10000)}"}
+  = f.label :name
+  = text_field_tag 'lines[]name'
+  = link_to_remove_lines "Удалить"
+/ .field
+/ # = f.label :type
+/  = text_field_tag 'doc_fields[lines][]type'
+

@@ -11,9 +11,9 @@
     = f.label :name
     %br
     = f.text_field :name
-  = f.fields_for :doc_fields do |field|
-    = render "doc_field_fields", :f => field
-  %p= link_to_add_fields "Добавить поле", f, :doc_fields
+  = f.fields_for :lines do |field|
+    = render "line_fields", f: field
+  %p= link_to_add_lines "Добавить поле", f, :lines
 
   .actions
     = f.submit t("save"), class: 'btn btn-success'
