@@ -1,21 +1,12 @@
 class DocType
   include Mongoid::Document
 
-  module Defines
-    FIELD_TYPES = {
-      "string" => "Строка",
-      "integer" => "Целое число",
-      "float" => "Дробное число",
-      "date" => "Дата",
-      "boolean" => "Логический"
-    }
-  end
-
-  # attr_accessible :doc_fields_arr
-
   field :name
   field :deleted, type: Boolean, default: false
-  field :doc_fields, type: Array, default: []
+
+  has_many :lines, :dependent => :destroy
+  accepts_nested_attributes_for :lines, :reject_if => lambda { |a| a[:name].blank? }, :allow_destroy => true
+
   has_many :docs
 
   scope :active, where(:deleted => false).order_by(:name => 1)

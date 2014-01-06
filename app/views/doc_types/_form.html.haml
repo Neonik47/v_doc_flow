@@ -9,11 +9,11 @@
           %li= msg
   .field
     = f.label :name
-    %br
-    = f.text_field :name
-  = f.fields_for :lines do |field|
-    = render "line_fields", f: field
-  %p= link_to_add_lines "Добавить поле", f, :lines
+    = f.text_field :name, class: "form-control"
+  %br
+  = f.fields_for :lines do |builder|
+    = render "line_fields", :f => builder
+  %p= link_to_add_fields "Добавить поле", f, :lines
 
   .actions
     = f.submit t("save"), class: 'btn btn-success'

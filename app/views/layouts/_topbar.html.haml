@@ -17,6 +17,10 @@
           = link_to doc_types_path do
             %span.glyphicon.glyphicon-list
             = t('.doc_types')
+        %li
+          = link_to docs_path do
+            %span.glyphicon.glyphicon-file
+            = t('.docs')
       %ul.nav.navbar-nav.navbar-right
         -if user_signed_in?
           %li.dropdown

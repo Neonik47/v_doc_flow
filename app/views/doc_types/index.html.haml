@@ -9,7 +9,8 @@
       %th= t("action")
     - @doc_types.each do |doc_type|
       %tr
-        %td= doc_type.name
+        %td
+          = doc_type.name
         %td.col-md-2
           .btn-group
             = link_to 'Show', doc_type, class: "btn btn-primary"

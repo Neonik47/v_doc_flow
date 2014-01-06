@@ -1,8 +1,8 @@
 %p
   %b Название:
   = @doc_type.name
--@doc_type.doc_fields.each do |field|
-  =render partial: 'doc_field', locals: {field: field}
+-@doc_type.lines.each do |line|
+  =render partial: 'line', locals: {line: line}
 
 = link_to 'Edit', edit_doc_type_path(@doc_type)
 = link_to 'Back', doc_types_path
