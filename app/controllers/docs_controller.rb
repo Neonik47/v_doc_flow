@@ -12,9 +12,11 @@ class DocsController < ApplicationController
 
   def new
     @doc = Doc.new
+    @doctypes = DocType.active.to_a
   end
 
   def edit
+    @doctypes = DocType.active.to_a
   end
 
   def create
