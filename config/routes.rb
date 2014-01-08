@@ -2,7 +2,11 @@ VDocFlow::Application.routes.draw do
   resources :docs
 
 
-  resources :doc_types
+  resources :doc_types do
+    member do
+      get 'get_lines'
+    end  
+  end
 
 
   devise_for :users

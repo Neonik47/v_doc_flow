@@ -28,3 +28,31 @@
 //     before: content.replace(regexp, new_id)
 //   });
 // }
+
+function get_fields_json(type_id){
+  $.ajax({
+    url:      '/doc_types/' + type_id + '/get_lines.json', // адрес для получения наших данных
+    type:     'GET',                               // указан для наглядности, по-умолчанию и так GET
+    dataType: 'json'                               // мы ждём в ответ json
+  })
+  .done(function(data){
+    var str = "";
+    $.each(data, function(i, val){ // http://api.jquery.com/jQuery.each/
+      // i - индекс в массиве. Нам он не нужен.
+      // val - элемент массива, объект, содержащий в себе поля объекта Line
+      str += '<option value="' + val.id + '">' + val.name + '</option>';
+    });
+    $('#right_place').html(str);
+  })
+  .fail(function(){
+    alert("ajax failed!");  // обработчик провальных ситуаций
+  });
+}
+
+function get_fields(type_id){
+  $( "#doc_type_lines" ).load( '/doc_types/' + type_id + '/get_lines' );
+}
+
+$('#doc_type_select_id').change(function(){
+  get_fields($(this).val());
+}).change();

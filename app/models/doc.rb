@@ -17,6 +17,7 @@ class Doc
   field :out_num
   field :department
   field :deleted, type: Boolean, default: false
+  field :lines, type: Hash, default:{}
   belongs_to :doc_type
   belongs_to :user
 

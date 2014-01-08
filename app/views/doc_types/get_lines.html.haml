@@ -1,0 +1,22 @@
+- @lines.each do |line|  
+  - icon_class, input_class = (line.type == "date" ? ["calendar", "datepicker"] : ["question-sign", ""])
+  - field_options = {class: "form-control", :disabled => true, title: "Чтобы редактировать поле нужно сохранить документ"}
+  - name = "doc[lines][#{line.name}]"
+  .form-group.col-xs-9
+    = label_tag line.name, nil, class: "col-xs-3 control-label"
+    .col-xs-6
+      .input-group{class: input_class}
+        -case line.type
+        -when "date"
+          = text_field_tag name, nil, field_options
+        -when "boolean"
+          = check_box_tag name, nil, false, field_options
+        -when "integer"
+          = number_field_tag name, nil, field_options
+        -when "string"
+          = text_field_tag name, nil, field_options
+        -else
+          = text_field_tag name, nil, field_options
+        
+        %span.input-group-addon{title: (line.title.blank? ? "Описание поля отсутствует" : line.title) + "\n(#{line.human_type})"}
+          %span{class: "glyphicon glyphicon-#{icon_class}"}

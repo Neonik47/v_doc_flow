@@ -5,29 +5,41 @@
       %ul
         - @doc.errors.full_messages.each do |msg|
           %li= msg
-  .field
-    = f.label :name
-    = f.text_field :name, class: "form-control"
-  .field
-    = f.label :in_num
-    = f.text_field :in_num, class: "form-control"
-  .field
-    = f.label :out_num
-    = f.text_field :name, class: "form-control"
-  .field
-    = f.label :department
-    = f.text_field :name, class: "form-control"
-  .field
-    = f.label :doc_type
-    = f.select :doc_type, options_for_select(@doctypes.map{|dt| [dt.name, dt.id]}, :selected => @doc.doc_type), class: 'col-lg-6 form-control'
-    =# f.select :doc_type, options_from_collection_for_select(@doctypes, :id, :name, selected: @doctypes.last), class: 'col-lg-6 form-control'
-  .lines
-    - if @doc.doc_type
-      %p 
-        = @doc.doc_type.name
-      %p
-        = @doc.doc_type.lines.each do |line|
-          = render "docs/line_types/#{line.type}" rescue "NO PARTIAL <br>"
+  .form-group.col-xs-9
+    = f.label :name, nil, class: "col-xs-3 control-label"
+    .col-xs-6  
+      .input-group
+        = f.text_field :name, class: "form-control"
+        %span.input-group-addon{title: "Имя документа"}
+          %span.glyphicon.glyphicon-question-sign
+  .form-group.col-xs-9
+    = f.label :in_num, nil, class: "col-xs-3 control-label"
+    .col-xs-6  
+      .input-group
+        = f.text_field :in_num, class: "form-control"
+        %span.input-group-addon{title: "Номер Входящего документа"}
+          %span.glyphicon.glyphicon-question-sign
+  .form-group.col-xs-9
+    = f.label :out_num, nil, class: "col-xs-3 control-label"
+    .col-xs-6  
+      .input-group
+        = f.text_field :out_num, class: "form-control"
+        %span.input-group-addon{title: "Номер исходящего документа"}
+          %span.glyphicon.glyphicon-question-sign
+  .form-group.col-xs-9
+    = f.label :department, nil, class: "col-xs-3 control-label"
+    .col-xs-6  
+      .input-group
+        = f.text_field :department, class: "form-control"
+        %span.input-group-addon{title: "Отдел отправитель"}
+          %span.glyphicon.glyphicon-question-sign   
+  .form-group.col-xs-9
+    = f.label :doc_type, nil, class: "col-xs-3 control-label"
+    .col-xs-6  
+      = select_tag :doc_type, options_for_select(@doctypes.map{|dt| [dt.name, dt.id]}, :selected => @doc.doc_type_id), :id => 'doc_type_select_id', :'data-width' => '100%'#, disabled: !@doc.new_record?
+
+  %div.clearfix{id: "doc_type_lines"}
+  
   .actions
     = f.submit t("save"), class: 'btn btn-success'
     = link_to t("back"), doc_types_path, class: "btn btn-primary"

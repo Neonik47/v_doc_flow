@@ -1,7 +1,7 @@
 class DocTypesController < ApplicationController
 
-  before_filter :check_admin!, except: :show
-  before_filter :set_doc_type, only: [:show, :edit, :update, :destroy]
+  before_filter :check_admin!, except: [:show, :get_lines]
+  before_filter :set_doc_type, only: [:show, :edit, :update, :destroy, :get_lines]
 
   def index
     @doc_types = DocType.all
@@ -40,6 +40,14 @@ class DocTypesController < ApplicationController
   def destroy
     @doc_type.destroy
     redirect_to doc_types_url
+  end
+
+  def get_lines
+    @lines = @doc_type.lines
+    respond_to do |format|
+      format.html { render layout: false}
+      format.json { render json: @lines }
+    end
   end
 
   private

@@ -21,6 +21,7 @@ class DocsController < ApplicationController
 
   def create
     @doc = Doc.new(params[:doc])
+    @doc.user = current_user
     if @doc.save
       redirect_to @doc, notice: 'Doc was successfully created.'
     else
@@ -29,6 +30,7 @@ class DocsController < ApplicationController
   end
 
   def update
+    # raise params[:doc].inspect
     if @doc.update_attributes(params[:doc])
       redirect_to @doc, notice: 'Doc was successfully updated.'
     else
