@@ -79,10 +79,10 @@ class User
   # end
 
   def human_role
-    Defines::ROLES[role] || "Role #{role} undefined!"
+    Defines::ROLES[role] || "Роль #{role} неопределена!"
   end
 
   def human_status
-  	Defines::STATUSES[status] || "Status #{status} undefined!"
+  	Defines::STATUSES[status] || "Статус #{status} неопределен!"
   end
 end

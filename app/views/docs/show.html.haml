@@ -1,6 +1,3 @@
-%p#notice= notice
-
-
-= link_to 'Edit', edit_doc_path(@doc)
-\|
-= link_to 'Back', docs_path
+%h1= t(".title")
+= link_to t("edit"), edit_doc_path(@doc), class: "btn btn-primary"
+= link_to t("back"), docs_path, class: "btn btn-primary"

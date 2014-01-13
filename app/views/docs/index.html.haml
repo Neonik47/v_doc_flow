@@ -1,17 +1,29 @@
-%h1 Listing docs
+%h1= t(".title")
 
-%table
-  %tr
-    %th
-    %th
-    %th
-
-  - @docs.each do |doc|
+.panel.panel-primary
+  .panel-heading
+    = t("docs.list")
+  %table.table.table-hover
     %tr
-      %td= link_to 'Show', doc
-      %td= link_to 'Edit', edit_doc_path(doc)
-      %td= link_to 'Destroy', doc, :method => :delete, :data => { :confirm => 'Are you sure?' }
-
-%br
-
-= link_to 'New Doc', new_doc_path
+      %th= t("docs.name")
+      %th= t("docs.doc_type")
+      %th= t("docs.status")
+      %th= t("action")
+    - @docs.each do |doc|
+      %tr
+        %td
+          = doc.name
+        %td
+          = doc.doc_type.name
+        %td
+          = doc.human_status
+        %td.col-xs-2
+          .btn-group
+            = link_to t("show"), doc, class: "btn btn-primary"
+            %button.btn.btn-primary.dropdown-toggle{"data-toggle" => "dropdown", :type => "button"}
+              %span.caret
+            %ul.dropdown-menu{:role => "menu"}
+              %li= link_to t("edit"), edit_doc_path(doc)
+              %li.divider
+              %li= link_to t("destroy"), doc, method: :delete, data: { confirm: t("confirm") }
+= link_to t("docs.new_doc"), new_doc_path, class: "btn btn-success"

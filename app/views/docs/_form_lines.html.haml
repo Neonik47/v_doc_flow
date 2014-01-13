@@ -1,0 +1,22 @@
+- lines.each_with_index do |line, i|  
+  - icon_class, input_class = (line["type"] == "date" ? ["calendar", "datepicker"] : ["question-sign", ""])
+  - field_options = {class: "form-control", :disabled => false, title: "Чтобы редактировать поле нужно сохранить документ"}
+  - name = "doc[lines][][value]"
+  .form-group.col-xs-9
+    = label_tag line["name"], line["name"], class: "col-xs-3 control-label"
+    .col-xs-6
+      .input-group{class: input_class}
+        -case line["type"]
+        -when "date"
+          = text_field_tag name, line["value"], field_options
+        -when "boolean"
+          = check_box_tag name, line["value"], false, field_options
+        -when "integer"
+          = number_field_tag name, line["value"], field_options
+        -when "string"
+          = text_field_tag name, line["value"], field_options
+        -else
+          = text_field_tag name, line["value"], field_options
+        
+        %span.input-group-addon{title: (line["title"].blank? ? "Описание поля отсутствует" : line["title"]) + "\n(#{Doc::human_type(line["type"])})"}
+          %span{class: "glyphicon glyphicon-#{icon_class}"}

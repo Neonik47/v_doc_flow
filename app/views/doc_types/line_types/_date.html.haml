@@ -1,7 +1,0 @@
-.form-group.col-xs-9
-  = label_tag line.name, nil, class: "col-xs-3 control-label"
-  .col-xs-6
-    .input-group.datepicker
-      = text_field_tag "doc[lines][#{line.name}]", nil, class: "form-control"
-      %span.input-group-addon{title: (line.title.blank? ? "Описание поля отсутствует" : line.title) + "\n(#{line.human_type})"}
-        %span.glyphicon.glyphicon-calendar

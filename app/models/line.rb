@@ -11,13 +11,14 @@ class Line
     }
   end
 
-  field :name
-  field :type
-  field :title
+  field :name, default: ""
+  field :type, default: ""
+  field :title, default: ""
+  field :validates, default: {}
 
   belongs_to :doc_type
 
   def human_type
-    Defines::FIELD_TYPES[type] || "Type '#{type}' undefined!"
+    Defines::FIELD_TYPES[type] || "Тип '#{type}' неопределен!"
   end
 end

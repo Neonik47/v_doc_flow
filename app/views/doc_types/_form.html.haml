@@ -7,10 +7,12 @@
       %ul
         - @doc_type.errors.full_messages.each do |msg|
           %li= msg
-  .field
-    = f.label :name
-    = f.text_field :name, class: "form-control"
-  %br
+  .form-group.col-xs-9
+    = f.label :name, nil, class: "col-xs-3 control-label"
+    .col-xs-6  
+      = f.text_field :name, class: "form-control"
+  .clearfix    
+
   = f.fields_for :lines do |builder|
     = render "line_fields", :f => builder
   %p= link_to_add_fields "Добавить поле", f, :lines

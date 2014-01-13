@@ -33,13 +33,16 @@
         = f.text_field :department, class: "form-control"
         %span.input-group-addon{title: "Отдел отправитель"}
           %span.glyphicon.glyphicon-question-sign   
-  .form-group.col-xs-9
-    = f.label :doc_type, nil, class: "col-xs-3 control-label"
-    .col-xs-6  
-      = select_tag :doc_type, options_for_select(@doctypes.map{|dt| [dt.name, dt.id]}, :selected => @doc.doc_type_id), :id => 'doc_type_select_id', :'data-width' => '100%'#, disabled: !@doc.new_record?
-
-  %div.clearfix{id: "doc_type_lines"}
   
+  -if @doc.new_record?
+    .form-group.col-xs-9
+      = f.label :doc_type, nil, class: "col-xs-3 control-label"
+      .col-xs-6 
+        = select_tag "doc[doc_type_id]", options_for_select(@doctypes.map{|dt| [dt.name, dt.id]}, :selected => @doc.doc_type_id), :id => 'doc_type_select_id', :'data-width' => '100%'
+    %div{id: "doc_type_lines"}
+  -else 
+    = render "form_lines", lines: @doc.lines
+  .clearfix  
   .actions
     = f.submit t("save"), class: 'btn btn-success'
-    = link_to t("back"), doc_types_path, class: "btn btn-primary"
+    = link_to t("back"), docs_path, class: "btn btn-primary"

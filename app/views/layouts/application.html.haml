@@ -4,8 +4,6 @@
     %meta{:charset => "utf-8"}/
     %title
       = t('page_title', :scope => @page_scope)
-      ·
-      = t('app_title.html', :scope => 'header')
     = stylesheet_link_tag "application", :media => "all"
     = csrf_meta_tags
   %body.application-layout

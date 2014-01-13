@@ -11,12 +11,12 @@ class DocType
 
   scope :active, where(:deleted => false).order_by(:name => 1)
 
-  def DocType::empty_field
-    return {:name => "", :type => "", :title => "", :validates => {}}
-  end
+  # def DocType::empty_field
+  #   return {:name => "", :type => "", :title => "", :validates => {}}
+  # end
 
-  def DocType::human_type(field = {})
-    Defines::FIELD_TYPES[field["type"]] || "Type '#{field["type"]}' undefined!"
-  end
+  # def DocType::human_type(field = {})
+  #   Defines::FIELD_TYPES[field["type"]] || "Type '#{field["type"]}' undefined!"
+  # end
 
 end

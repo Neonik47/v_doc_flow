@@ -2,12 +2,12 @@
 
 .panel.panel-primary
   .panel-heading
-    = t("users")
+    = t("users.list")
   %table.table.table-hover
     %tr
-      %th= t("user.name")
-      %th= t("user.role")
-      %th= t("user.status")
+      %th= t("users.name")
+      %th= t("users.role")
+      %th= t("users.status")
       %th= t("action")
     - @users.each do |user|
       %tr
@@ -16,7 +16,7 @@
         %td= user.human_status
         %td.col-md-2
           .btn-group
-            = link_to 'Show', user, class: "btn btn-primary"
+            = link_to t("show"), user, class: "btn btn-primary"
             %button.btn.btn-primary.dropdown-toggle{"data-toggle" => "dropdown", :type => "button"}
               %span.caret
             %ul.dropdown-menu{:role => "menu"}
@@ -29,4 +29,4 @@
               %li
               %li.divider
               %li= link_to t("destroy"), user, method: :delete, data: { confirm: t("confirm") }
-= link_to t("user.new_user"), new_user_path, class: "btn btn-success"
+= link_to t("users.new_user"), new_user_path, class: "btn btn-success"

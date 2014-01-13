@@ -1,8 +1,14 @@
-%p
-  %b Название:
-  = @doc_type.name
--@doc_type.lines.each do |line|
-  =render partial: 'line', locals: {line: line}
-
-= link_to 'Edit', edit_doc_type_path(@doc_type)
-= link_to 'Back', doc_types_path
+%h1= t(".title")
+.form-group.col-xs-9
+  .col-xs-3
+    %b= t("doc_types.name")
+  .col-xs-6 
+    = @doc_type.name
+.clearfix    
+-@doc_type.lines.each do |line|  
+  .well.well-sm.form-group.col-xs-9  
+    .col-xs-3= line.name
+    .col-xs-6= line.human_type
+.clearfix
+= link_to t("edit"), edit_doc_type_path(@doc_type), class: "btn btn-primary"
+= link_to t("back"), doc_types_path, class: "btn btn-primary"
