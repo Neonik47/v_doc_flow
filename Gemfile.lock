@@ -31,6 +31,10 @@ GEM
     arel (3.0.3)
     bcrypt-ruby (3.1.2)
     builder (3.0.4)
+    climate_control (0.0.3)
+      activesupport (>= 3.0)
+    cocaine (0.5.3)
+      climate_control (>= 0.0.3, < 1.0)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
       railties (~> 3.2.0)
@@ -83,10 +87,17 @@ GEM
     mongoid-grid_fs (1.9.0)
       mime-types (~> 1.19)
       mongoid (~> 3.0)
+    mongoid-paperclip (0.0.8)
+      paperclip (>= 2.3.6)
     moped (1.5.1)
     multi_json (1.8.2)
     origin (1.1.0)
     orm_adapter (0.5.0)
+    paperclip (3.5.2)
+      activemodel (>= 3.0.0)
+      activesupport (>= 3.0.0)
+      cocaine (~> 0.5.3)
+      mime-types
     polyglot (0.3.3)
     rack (1.4.5)
     rack-cache (1.2)
@@ -159,6 +170,7 @@ DEPENDENCIES
   less-rails
   mongoid
   mongoid-grid_fs
+  mongoid-paperclip (~> 0.0.8)
   rails (= 3.2.16)
   russian
   sass-rails (~> 3.2.3)

@@ -31,9 +31,17 @@ class DocsController < ApplicationController
   end
 
   def update
-    # raise params[:lines].inspect
+    # raise params[:doc].inspect
+
     # raise params[:doc].delete(:lines).inspect
+    # raise params[:doc][:images_attributes]
+      images = params[:doc].delete(:images_attributes)
     if @doc.update_attributes(params[:doc])
+      raise images.inspect
+      images.each do |image|
+        i = @doc.images.build(image)
+        i.save
+      end
       redirect_to @doc, notice: 'Doc was successfully updated.'
     else
       render action: "edit"

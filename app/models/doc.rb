@@ -27,6 +27,20 @@ class Doc
   field :lines, type: Array, default:[]
   belongs_to :doc_type
   belongs_to :user
+  # has_many :images
+  # accepts_nested_attributes_for :images
+
+  # attr_accessible :images_attributes
+  # attr_accessor :images_attributes
+
+  # embeds_many :images, :cascade_callbacks => true
+  # accepts_nested_attributes_for :images#, :allow_destroy => true
+
+
+
+  embeds_many :images, :cascade_callbacks => true
+  accepts_nested_attributes_for :images, :allow_destroy => true
+
 
   def Doc::human_type(type)
     Line::Defines::FIELD_TYPES[type] || "Тип '#{type}' неопределен!"
