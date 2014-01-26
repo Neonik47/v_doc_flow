@@ -25,6 +25,7 @@ class Doc
   field :status, type: String, default: "draft"
   field :deleted, type: Boolean, default: false
   field :lines, type: Array, default:[]
+  # field :responsible #ответственный
   belongs_to :doc_type
   belongs_to :user
   # has_many :images

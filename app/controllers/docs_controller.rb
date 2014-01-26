@@ -35,9 +35,9 @@ class DocsController < ApplicationController
 
     # raise params[:doc].delete(:lines).inspect
     # raise params[:doc][:images_attributes]
-      images = params[:doc].delete(:images_attributes)
+      images = params[:doc].delete(:images_attributes) || []
     if @doc.update_attributes(params[:doc])
-      raise images.inspect
+      # raise images.inspect
       images.each do |image|
         i = @doc.images.build(image)
         i.save

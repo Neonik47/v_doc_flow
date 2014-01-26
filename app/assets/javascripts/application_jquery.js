@@ -12,10 +12,4 @@ function add_fields(link, association, content) {
 function remove_lines(link) {
   $(link).prev("input[type=text]").val("1");	
   $(link).prev(".line").html("yo");
-  // $(link).closest(".fields").html("daa");//.hide();
-
-  // $(link).offsetParent().html("woho");
-  // alert(link);
-  // $(link).prev("input[type=hidden]").val("1");
-  // $(link).closest(".fields").hide();
 }
