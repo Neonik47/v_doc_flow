@@ -39,7 +39,8 @@ class DocsController < ApplicationController
     if @doc.update_attributes(params[:doc])
       # raise images.inspect
       images.each do |image|
-        i = @doc.images.build(image)
+        puts "-"*20,image,"-"*20
+        i = @doc.images.new(image)
         i.save
       end
       redirect_to @doc, notice: 'Doc was successfully updated.'

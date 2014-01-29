@@ -43,7 +43,6 @@
   -else 
     = render "form_lines", lines: @doc.lines
   = file_field_tag('doc_images_attributes_file', multiple: true, name: "doc[images_attributes][][file]")  
-
   -@doc.images.each do |image|
     =image_tag image.file.url
   .clearfix  

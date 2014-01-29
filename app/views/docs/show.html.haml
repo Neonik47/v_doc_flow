@@ -1,3 +1,6 @@
 %h1= t(".title")
+-@doc.images.each do |image|
+  =link_to image_tag(image.file.url(:thumb)), image.file.url
+.clear
 = link_to t("edit"), edit_doc_path(@doc), class: "btn btn-primary"
 = link_to t("back"), docs_path, class: "btn btn-primary"
