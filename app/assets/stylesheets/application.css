@@ -11,3 +11,18 @@
  *= require_self
  *= require_tree .
  */
+
+.image {
+	border: 1px solid #ddd;
+	background: #eee;
+    width: 120px;
+    height: 120px;
+    padding: 10px;
+    margin: 5px;
+    text-align: center;
+}
+
+.image img {
+  max-height: 100px;
+  max-width: 100px;
+}

@@ -58,5 +58,6 @@ class DocTypesController < ApplicationController
 
   def set_doc_type
     @doc_type = DocType.find(params[:id])
+  rescue Mongoid::Errors::DocumentNotFound  
   end
 end

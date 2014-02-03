@@ -42,10 +42,23 @@
     %div{id: "doc_type_lines"}
   -else 
     = render "form_lines", lines: @doc.lines
-  = file_field_tag('doc_images_attributes_file', multiple: true, name: "doc[images_attributes][][file]")  
-  -@doc.images.each do |image|
-    =image_tag image.file.url
   .clearfix  
+  = file_field_tag('doc_images_attributes_file', multiple: true, name: "doc[images_attributes][][file]")
+
+
+  .panel-group
+    .panel.panel-primary
+      .panel-heading
+        %h4.panel-title
+          %a{"data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#collapseOne"}
+            Изображения
+      #collapseOne.panel-collapse.collapse.in
+        .panel-body
+          -@doc.images.each do |image|
+            .image.pull-left
+              =image_tag image.file.url(:thumb)
+              .select_image= check_box_tag 'images_to_delete[]', image.id
+
   .actions
     = f.submit t("save"), class: 'btn btn-success'
     = link_to t("back"), docs_path, class: "btn btn-primary"

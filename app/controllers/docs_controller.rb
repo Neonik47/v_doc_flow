@@ -32,16 +32,16 @@ class DocsController < ApplicationController
 
   def update
     # raise params[:doc].inspect
-
-    # raise params[:doc].delete(:lines).inspect
-    # raise params[:doc][:images_attributes]
-      images = params[:doc].delete(:images_attributes) || []
+    # images = params[:doc].delete(:images_attributes) || []
+    images_to_destroy = params.delete("images_to_delete") || [] 
     if @doc.update_attributes(params[:doc])
-      # raise images.inspect
-      images.each do |image|
-        puts "-"*20,image,"-"*20
-        i = @doc.images.new(image)
-        i.save
+      # images.each do |image|
+      #   i = @doc.images.new(image)
+      #   i.save
+      # end
+      images_to_destroy.each do |image_id|
+        image = @doc.images.select{|i| i.id.to_s == image_id}.first
+        image.destroy if image
       end
       redirect_to @doc, notice: 'Doc was successfully updated.'
     else
@@ -62,9 +62,18 @@ class DocsController < ApplicationController
 
   def set_doc
     @doc = Doc.find(params[:id])
+  rescue Mongoid::Errors::DocumentNotFound
+    
   end
 
   def doc_line(line, value)
     {line.id.to_s => {name: line.name, type: line.type, title: line.title, validates: line.validates, value: value}}
+  end
+
+  def destroy_image(image_id)
+    puts "-"*10, image_id.class
+    image = @doc.images.select{|i| i.id == image_id}.first
+    puts image
+    image.destroy if image    
   end
 end
