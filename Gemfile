@@ -50,3 +50,4 @@ gem 'devise', '~> 2.2.4'
 
 gem "mongoid-paperclip", "~> 0.0.8", :require => "mongoid_paperclip"
 gem 'rmagick'
+gem 'state_machine'

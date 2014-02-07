@@ -1,11 +1,22 @@
 VDocFlow::Application.routes.draw do
-  resources :docs
+  resources :docs do
+    member do
+      get :change_responsible
+      get :to_review
+      get :reject
+      get :to_revision
+      get :accept
+      get :to_execution
+      get :to_confirmation_of_execution
+      get :to_executed
+    end
+  end
 
 
   resources :doc_types do
     member do
       get 'get_lines'
-    end  
+    end
   end
 
 

@@ -1,8 +1,12 @@
 class DocsController < ApplicationController
 
   before_filter :check_admin!, except: :show
-  before_filter :set_doc, only: [:show, :edit, :update, :destroy]
+  #before_filter :set_doc, only: [:show, :edit, :update, :destroy,
+  #                              :change_responsible, :to_review, :reject,
+  #                              :to_revision, :accept, :to_execution,
+  #                              :to_confirmation_of_execution, :to_executed]
 
+  before_filter :set_doc, except: [:index, :new, :create]
   def index
     @docs = Doc.all
   end
@@ -15,25 +19,26 @@ class DocsController < ApplicationController
     @doctypes = DocType.active.to_a
   end
 
-  def edit    
+  def edit
     @doctypes = DocType.active.to_a #delete after good
   end
 
   def create
     @doc = Doc.new(params[:doc])
-    @doc.user = current_user    
+    @doc.user = current_user
     @doc.lines = @doc.doc_type.lines.map{|l| doc_line(l, params[:lines][l.id.to_s]) }
     if @doc.save
       redirect_to edit_doc_path(@doc), notice: 'Doc was successfully created.'
     else
       render action: "new"
+    create_work_log(__method__)
     end
   end
 
   def update
     # raise params[:doc].inspect
     # images = params[:doc].delete(:images_attributes) || []
-    images_to_destroy = params.delete("images_to_delete") || [] 
+    images_to_destroy = params.delete("images_to_delete") || []
     if @doc.update_attributes(params[:doc])
       # images.each do |image|
       #   i = @doc.images.new(image)
@@ -46,8 +51,58 @@ class DocsController < ApplicationController
       redirect_to @doc, notice: 'Doc was successfully updated.'
     else
       render action: "edit"
+    create_work_log(__method__)
     end
   end
+
+  def change_responsible
+    @doc.change_responsible
+    create_work_log(__method__)
+    redirect_to :back, notice: "change_responsible"
+  end
+
+  def to_review
+    @doc.to_review
+    create_work_log(__method__)
+    redirect_to :back, notice: "to_review"
+  end
+
+  def reject
+    @doc.reject
+    create_work_log(__method__)
+    redirect_to :back, notice: "reject"
+  end
+
+  def to_revision
+    @doc.to_revision
+    create_work_log(__method__)
+    redirect_to :back, notice: "to_revision"
+  end
+
+  def accept
+    @doc.accept
+    create_work_log(__method__)
+    redirect_to :back, notice: "accept"
+  end
+
+  def to_execution
+    @doc.to_execution
+    create_work_log(__method__)
+    redirect_to :back, notice: "to_execution"
+  end
+
+  def to_confirmation_of_execution
+    @doc.to_confirmation_of_execution
+    create_work_log(__method__)
+    redirect_to :back, notice: "to_confirmation_of_execution"
+  end
+
+  def to_executed
+    @doc.to_executed
+    create_work_log(__method__)
+    redirect_to :back, notice: "to_executed"
+  end
+
 
   def destroy
     @doc.destroy
@@ -63,7 +118,12 @@ class DocsController < ApplicationController
   def set_doc
     @doc = Doc.find(params[:id])
   rescue Mongoid::Errors::DocumentNotFound
-    
+
+  end
+
+  def create_work_log(action = nil)
+    @work_log = @doc.work_logs.build(user_id: current_user.id, time: Time.now, action: action, comment: "some comment")
+    @work_log.save
   end
 
   def doc_line(line, value)
@@ -71,9 +131,7 @@ class DocsController < ApplicationController
   end
 
   def destroy_image(image_id)
-    puts "-"*10, image_id.class
     image = @doc.images.select{|i| i.id == image_id}.first
-    puts image
-    image.destroy if image    
+    image.destroy if image
   end
 end

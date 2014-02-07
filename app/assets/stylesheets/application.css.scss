@@ -15,14 +15,30 @@
 .image {
 	border: 1px solid #ddd;
 	background: #eee;
-    width: 120px;
-    height: 120px;
-    padding: 10px;
-    margin: 5px;
-    text-align: center;
+  width: 120px;
+  height: 120px;
+  padding: 10px;
+  margin: 5px;
+  text-align: center;
+
+  img {
+    max-height: 100px;
+    max-width: 100px;
+  }
 }
 
-.image img {
-  max-height: 100px;
-  max-width: 100px;
+.work_logs {
+  border: 2px solid #ddd;
+  width: 300px;
+  height: 400px;
+  overflow: auto;
+  .work_log{
+    margin: 5px;
+    border: 1px solid #ddd;
+    .user {
+      width: 100%;
+      border: 1px solid #ddd;
+      padding: 0;
+    }
+  }
 }

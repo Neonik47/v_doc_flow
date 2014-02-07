@@ -1,0 +1,6 @@
+.work_log
+  .user= User.find(work_log.user_id).name
+  %p
+    = work_log.time#l(work_log.time, format: :short)
+    .label.label-warning= t(work_log.action)
+  %p= work_log.comment

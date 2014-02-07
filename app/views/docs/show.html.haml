@@ -1,6 +1,16 @@
 %h1= t(".title")
+%h4= t(@doc.status)
+
 -@doc.images.each do |image|
   =link_to image_tag(image.file.url(:thumb)), image.file.url
 .clear
-= link_to t("edit"), edit_doc_path(@doc), class: "btn btn-primary"
+.work_logs
+  -@doc.work_logs.reverse.each do |w_l|
+    =render "work_log", work_log: w_l
+
+%hr
+-@doc.status_paths.events.each do |event|
+  - if  @doc.can?(event)
+    = link_to_event(event, @doc)
 = link_to t("back"), docs_path, class: "btn btn-primary"
+
