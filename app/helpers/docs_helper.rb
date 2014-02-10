@@ -1,4 +1,47 @@
 module DocsHelper
+  def event_simple?(event)
+    return case event
+    when :edit, :to_review, :accept, :to_executed
+      true
+    else
+      false
+    end
+  end
+
+  def with_change_responsible(event)
+    return case event
+    when :change_responsible
+      true
+    else
+      false
+    end
+  end
+
+  def event_path(event)
+    return case event
+      when :edit
+        edit_doc_path
+      when :change_responsible
+        change_responsible_doc_path
+      when :to_review
+        to_review_doc_path
+      when :reject
+        reject_doc_path
+      when :to_revision
+        to_revision_doc_path
+      when :accept
+        accept_doc_path
+      when :to_execution
+        to_execution_doc_path
+      when :to_confirmation_of_execution
+        to_confirmation_of_execution_doc_path
+      when :to_executed
+        to_executed_doc_path
+      else
+        root_path
+    end
+  end
+
   def link_to_event(event, doc)
     res = case event
       when :edit

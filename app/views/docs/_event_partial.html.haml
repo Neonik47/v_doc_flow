@@ -1,0 +1,21 @@
+-if event_simple?(event)
+  = link_to_event(event, @doc)
+-else
+  - modal_id = "#{event}_modal"
+  = link_to t(event), "#"+modal_id, {class: "btn btn-primary", "data-toggle" => "modal"}
+  .modal.fade{id: modal_id, "aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
+    .modal-dialog
+      .modal-content
+        .modal-header
+          %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} &times;
+          %h4#myModalLabel.modal-title= t(event)
+        .modal-body{style: "overflow: visible;"}
+          = form_for(@work_log = WorkLog.new(), :html => { :class => "form-inline"}, url: event_path(event)) do
+            .work_log_modal
+              = text_area_tag(:comment, nil, {class: "form-control", rows: 7, placeholder: "Комментарий"})
+              - if with_change_responsible(event)
+                %br
+                = select_tag :new_responsible, options_from_collection_for_select(@users_for_response, :id, :name, nil), {class: "form-control"}
+            .modal-footer
+              %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"}= t("close")
+              %button.btn.btn-primary{:type => "submit"}= t(event)

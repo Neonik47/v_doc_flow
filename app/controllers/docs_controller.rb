@@ -12,6 +12,7 @@ class DocsController < ApplicationController
   end
 
   def show
+    @users_for_response = User.all
   end
 
   def new
@@ -122,7 +123,7 @@ class DocsController < ApplicationController
   end
 
   def create_work_log(action = nil)
-    @work_log = @doc.work_logs.build(user_id: current_user.id, time: Time.now, action: action, comment: "some comment")
+    @work_log = @doc.work_logs.build(user_id: current_user.id, time: Time.now, action: action, comment: params[:comment])
     @work_log.save
   end
 

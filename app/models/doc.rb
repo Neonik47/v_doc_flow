@@ -9,14 +9,6 @@ class Doc
 # ФИО и должность кому предназначается документ
 
   module Defines
-    STATUSES = {
-      "draft" => "Черновик",
-      "revision" => "В доработке",
-      "secretariat" => "Рассмотрение секретариата",
-      "dep_head" => "Рассмотрение начальника отдела",
-      "deputy_head" => "Рассмотрение зам. начальника отдела"
-    } #заимствуется из списка ролей
-
   end
 
   field :name
@@ -89,20 +81,10 @@ class Doc
       transition :confirmation_of_execution => :executed
     end
 
-    #doc.state_paths.events # => [:park, :ignite, :shift_up, :idle, :crash, :repair, :shift_down]
-
   end
 
   def can?(event)
     self.send("can_#{event}?")
-  end
-
-  def Doc::human_type(type)
-    Line::Defines::FIELD_TYPES[type] || "Тип '#{type}' неопределен!"
-  end
-
-  def human_status
-    Defines::STATUSES[status] || "Статус '#{status}' неопределен!"
   end
 
 end

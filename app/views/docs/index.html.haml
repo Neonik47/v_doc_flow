@@ -16,7 +16,7 @@
         %td
           = doc.doc_type.name
         %td
-          = doc.human_status
+          = t(doc.status)
         %td.col-xs-2
           .btn-group
             = link_to t("show"), doc, class: "btn btn-primary"

@@ -3,6 +3,7 @@ ru:
   app_title: "Приложение"
   save: "Сохранить"
   back: "Назад"
+  close: "Закрыть"
   action: "Действие"
   destroy: "Удалить"
   confirm: "Вы уверены?"
