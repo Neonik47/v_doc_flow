@@ -53,6 +53,6 @@ function get_fields(type_id){
   $( "#doc_type_lines" ).load( '/doc_types/' + type_id + '/get_lines' );
 }
 
-$('#doc_type_select_id').change(function(){
+$('#doc_doc_type_id').change(function(){
   get_fields($(this).val());
 }).change();

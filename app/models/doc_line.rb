@@ -1,4 +1,4 @@
-class Line
+class DocLine
   include Mongoid::Document
 
   module Defines
@@ -12,12 +12,12 @@ class Line
   end
 
   field :name, default: ""
+  field :value
   field :type, default: ""
   field :title, default: ""
   field :validates, type: Hash, default: {}
 
-  embedded_in :doc_type
-  # belongs_to :doc_type
+  embedded_in :doc
 
   def human_type
     Defines::FIELD_TYPES[type] || "Тип '#{type}' неопределен!"

@@ -3,4 +3,5 @@
   %p
     = work_log.time#l(work_log.time, format: :short)
     .label.label-warning= t(work_log.action)
-  %p= raw(work_log.comment.gsub("\n", "<br>"))
+  - if work_log.comment
+    %p= raw(work_log.comment.gsub("\n", "<br>"))

@@ -17,15 +17,17 @@ class Doc
   field :department
   field :status, type: String, default: "draft"
   field :deleted, type: Boolean, default: false
-  field :lines, type: Array, default:[]
   # field :responsible #ответственный
   belongs_to :doc_type
   belongs_to :user
   embeds_many :work_logs
-  embeds_many :images, :cascade_callbacks => true
-  accepts_nested_attributes_for :images
-  attr_accessible :images_attributes
+  embeds_many :images, cascade_callbacks: true
+  embeds_many :doc_lines, cascade_callbacks: true
 
+  accepts_nested_attributes_for :doc_lines, :allow_destroy => false
+  accepts_nested_attributes_for :images
+  attr_accessible :images_attributes, :doc_lines_attributes, :name,
+  :in_num, :out_num, :department, :doc_type_id
 
   state_machine :status, initial: :draft do
 
