@@ -7,42 +7,64 @@
           %li= msg
   .form-group.col-xs-9
     = f.label :name, nil, class: "col-xs-3 control-label"
-    .col-xs-6  
+    .col-xs-6
       .input-group
         = f.text_field :name, class: "form-control"
         %span.input-group-addon{title: "Имя документа"}
           %span.glyphicon.glyphicon-question-sign
   .form-group.col-xs-9
     = f.label :in_num, nil, class: "col-xs-3 control-label"
-    .col-xs-6  
+    .col-xs-6
       .input-group
         = f.text_field :in_num, class: "form-control"
         %span.input-group-addon{title: "Номер Входящего документа"}
           %span.glyphicon.glyphicon-question-sign
   .form-group.col-xs-9
     = f.label :out_num, nil, class: "col-xs-3 control-label"
-    .col-xs-6  
+    .col-xs-6
       .input-group
         = f.text_field :out_num, class: "form-control"
         %span.input-group-addon{title: "Номер исходящего документа"}
           %span.glyphicon.glyphicon-question-sign
   .form-group.col-xs-9
     = f.label :department, nil, class: "col-xs-3 control-label"
-    .col-xs-6  
+    .col-xs-6
       .input-group
         = f.text_field :department, class: "form-control"
         %span.input-group-addon{title: "Отдел отправитель"}
-          %span.glyphicon.glyphicon-question-sign   
-  
+          %span.glyphicon.glyphicon-question-sign
+
   -if @doc.new_record?
     .form-group.col-xs-9
       = f.label :doc_type, nil, class: "col-xs-3 control-label"
-      .col-xs-6 
-        = select_tag "doc[doc_type_id]", options_for_select(@doctypes.map{|dt| [dt.name, dt.id]}, :selected => @doc.doc_type_id), :id => 'doc_type_select_id', :'data-width' => '100%'
+      .col-xs-6
+        = select_tag "doc[doc_type_id]", options_for_select(@doctypes.map{|dt| [dt.name, dt.id]}, :selected => @doc.doc_type_id), :id => 'doc_doc_type_id', :'data-width' => '100%'
     %div{id: "doc_type_lines"}
-  -else 
-    = render "form_lines", lines: @doc.lines
-  .clearfix  
+  -else
+    = f.fields_for :doc_lines do |builder|
+      - line = builder.object
+      - icon_class, input_class = (line["type"] == "date" ? ["calendar", "datepicker"] : ["question-sign", ""])
+      - field_options = {class: "form-control"}
+      .form-group.col-xs-9
+        = label_tag line.name, nil, class: "col-xs-3 control-label"
+        .col-xs-6
+          .input-group{class: input_class}
+            -case line["type"]
+            -when "date"
+              = builder.text_field :value, field_options
+            -when "boolean"
+              = builder.check_box :value, false, field_options
+            -when "integer"
+              = builder.number_field :value, field_options
+            -when "string"
+              = builder.text_field :value, field_options
+            -else
+              = builder.text_field :value, field_options
+
+            %span.input-group-addon{title: (line["title"].blank? ? "Описание поля отсутствует" : line["title"]) + "\n(#{t(line["type"])})"}
+              %span{class: "glyphicon glyphicon-#{icon_class}"}
+
+  .clearfix
   = file_field_tag('doc_images_attributes_file', multiple: true, name: "doc[images_attributes][][file]")
 
 
@@ -52,7 +74,7 @@
         %h4.panel-title
           %a{"data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#collapseOne"}
             Изображения
-      #collapseOne.panel-collapse.collapse.in
+      #collapseOne.panel-collapse.collapse{class: @doc.images.empty? ? "out" : "in"}
         .panel-body
           -@doc.images.each do |image|
             .image.pull-left

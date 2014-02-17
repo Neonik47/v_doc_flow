@@ -1,7 +1,7 @@
-- @lines.each do |line|  
+- @lines.each do |line|
   - icon_class, input_class = (line.type == "date" ? ["calendar", "datepicker"] : ["question-sign", ""])
-  - field_options = {class: "form-control", :disabled => false, title: "Чтобы редактировать поле нужно сохранить документ"}
-  - name = "lines[#{line.id}]"
+  - field_options = {class: "form-control", :disabled => true, title: "Чтобы редактировать поле нужно сохранить документ"}
+  - name = nil #= "lines[#{line.id}]"
   .form-group.col-xs-9
     = label_tag line.name, nil, class: "col-xs-3 control-label"
     .col-xs-6
@@ -17,6 +17,6 @@
           = text_field_tag name, nil, field_options
         -else
           = text_field_tag name, nil, field_options
-        
+
         %span.input-group-addon{title: (line.title.blank? ? "Описание поля отсутствует" : line.title) + "\n(#{line.human_type})"}
           %span{class: "glyphicon glyphicon-#{icon_class}"}
