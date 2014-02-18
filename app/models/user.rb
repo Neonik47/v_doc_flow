@@ -65,7 +65,7 @@ class User
   field :role, type: String
   field :status, type: String, default: "not_activated"
   has_many :docs
-  has_many :work_logs
+  # has_many :work_logs
 
   def admin?
   	role == "admin"

@@ -2,7 +2,7 @@ class Image
   include Mongoid::Document
   include Mongoid::Paperclip
 
-  embedded_in :listing, :inverse_of => :images
+  embedded_in :doc, :inverse_of => :images
 
   has_mongoid_attached_file :file, :styles => { :thumb => "100x100>" },
   :url => "/system/:attachment/:id/:style/:basename.:extension",
