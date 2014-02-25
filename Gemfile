@@ -27,12 +27,10 @@ gem 'jquery-rails'
 gem 'execjs'
 gem 'therubyracer', :platforms => :ruby
 gem 'therubyrhino', :platforms => :ruby
-# gem 'mongoid'
 gem 'mongoid', github: 'mongoid/mongoid'
-# gem 'moped'
-# gem 'bson_ext'
 # gem 'mongoid-grid_fs'
-
+gem "bson"
+gem "moped", github: "mongoid/moped"
 gem 'jquery-ui-rails'
 gem 'kaminari'
 gem 'haml'

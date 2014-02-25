@@ -26,8 +26,8 @@ class Doc
 
   accepts_nested_attributes_for :doc_lines, :allow_destroy => false
   accepts_nested_attributes_for :images
-  attr_accessible :images_attributes, :doc_lines_attributes, :name,
-  :in_num, :out_num, :department, :doc_type_id
+  # attr_accessible :images_attributes, :doc_lines_attributes, :name,
+  # :in_num, :out_num, :department, :doc_type_id
 
   state_machine :status, initial: :draft do
 

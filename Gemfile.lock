@@ -8,6 +8,15 @@ GIT
       origin (~> 2.1)
       tzinfo (>= 0.3.37)
 
+GIT
+  remote: git://github.com/mongoid/moped.git
+  revision: 2c884fee5f1f9b7b95593927c6bdd9f1b931fc18
+  specs:
+    moped (2.0.0.beta6)
+      bson (~> 2.2)
+      connection_pool (~> 1.2)
+      optionable (~> 0.2.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -37,7 +46,7 @@ GEM
       tzinfo (~> 0.3.37)
     arel (4.0.2)
     atomic (1.1.14)
-    bcrypt (3.1.6)
+    bcrypt (3.1.7)
     bcrypt-ruby (3.1.5)
       bcrypt (>= 3.1.3)
     bson (2.2.1)
@@ -92,10 +101,6 @@ GEM
       treetop (~> 1.4.8)
     mime-types (1.25.1)
     minitest (4.7.5)
-    moped (2.0.0.beta6)
-      bson (~> 2.2)
-      connection_pool (~> 1.2)
-      optionable (~> 0.2.0)
     multi_json (1.8.4)
     optionable (0.2.0)
     origin (2.1.0)
@@ -166,6 +171,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bson
   coffee-rails
   devise
   execjs
@@ -176,6 +182,7 @@ DEPENDENCIES
   kaminari
   less-rails
   mongoid!
+  moped!
   paperclip
   rails (= 4)
   rmagick

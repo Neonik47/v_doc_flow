@@ -8,6 +8,13 @@ require "action_mailer/railtie"
 require "sprockets/railtie"
 require "rails/test_unit/railtie"
 
+# сомнительный ход из интернетов
+require "bson"
+require "moped"
+
+Moped::BSON = BSON
+# конец сомнительного кода из интернетов
+
 if defined?(Bundler)
   # If you precompile assets before deploying to production, use this line
   Bundler.require(*Rails.groups(:assets => %w(development test)))
