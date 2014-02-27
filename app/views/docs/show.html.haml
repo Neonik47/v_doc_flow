@@ -1,14 +1,21 @@
-%h1= t(".title")
-%h4= t(@doc.status)
--@doc.images.each do |image|
-  =link_to image_tag(image.file.url(:thumb)), image.file.url
-.clear
--unless @doc.work_logs.empty?
-  .work_logs
-    -@doc.work_logs.reverse.each do |w_l|
-      =render "work_log", work_log: w_l
+.row
+  .col-xs-9
+    %h1= t(".title")
+    %h4= t(@doc.status)
 
-%hr
+
+    %dt= t('docs.name')
+    %dd= @doc.name
+
+    -@doc.images.each do |image|
+      =link_to image_tag(image.file.url(:thumb)), image.file.url
+    .clear
+  .col-xs-3
+    -unless @doc.work_logs.empty?
+      .work_logs
+        -@doc.work_logs.reverse.each do |w_l|
+          =render "work_log", work_log: w_l
+
 .btn-group
   -@doc.status_paths.events.each do |event|
     - if @doc.can?(event)

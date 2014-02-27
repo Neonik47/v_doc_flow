@@ -1,0 +1,24 @@
+ru:
+  mongoid:
+    models:
+      user: "Пользователь"
+      doc_type: "Тип документа"
+      doc: "Документ"
+    attributes:
+      user:
+        email: "E-Mail"
+        password: "Пароль"
+        name: "Имя"
+        role: "Роль"
+        status: "Статус"
+      doc_type:
+        name: "Имя"
+        deleted: "Удален"
+      doc:
+        name: "Имя"
+        in_num: "Входящий номер"
+        out_num: "Исходящий номер"
+        department: "Отдел отправитель"
+        status: "Статус"
+        deleted: "Удален"
+        doc_type: "Тип документа"
