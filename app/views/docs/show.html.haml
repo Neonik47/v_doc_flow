@@ -3,6 +3,9 @@
     %h1= t(".title")
     %h4= t(@doc.status)
 
+    %dt= t('docs.name')
+    %dd= @doc.name
+
     -@doc.images.each do |image|
       =link_to image_tag(image.file.url(:thumb)), image.file.url
     .clear
@@ -16,5 +19,4 @@
   -@doc.status_paths.events.each do |event|
     - if @doc.can?(event)
       = render "/docs/event_partial", event: event
-      =# link_to_event(event, @doc)
   = link_to t("back"), docs_path, class: "btn btn-primary"

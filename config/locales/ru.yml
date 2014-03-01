@@ -9,8 +9,10 @@ ru:
   confirm: "Вы уверены?"
   sign_in: "Вход"
 
+  create: "Создать"
   show: "Показать"
   edit: "Редактировать"
+  update: "Обновить"
   destroy: "Удалить"
   enable: "Активировать"
   disable: "Заблокировать"

@@ -29,8 +29,8 @@
 
 .work_logs {
   border: 2px solid #ddd;
-  width: 300px;
-  height: 400px;
+  //width: 300px;
+  max-height: 400px;
   overflow: auto;
   .work_log{
     margin: 5px;
@@ -44,5 +44,6 @@
 }
 
 .work_log_modal{
+  z-index: 110060 !important;
   textarea { resize:none; }
 }

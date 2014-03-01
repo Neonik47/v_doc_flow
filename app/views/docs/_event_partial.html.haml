@@ -9,7 +9,7 @@
         .modal-header
           %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} &times;
           %h4#myModalLabel.modal-title= t(event)
-        .modal-body{style: "overflow: visible;"}
+        .modal-body
           = form_for(@work_log = WorkLog.new(), :html => { :class => "form-inline"}, url: event_path(event)) do
             .work_log_modal
               = text_area_tag(:comment, nil, {class: "form-control", rows: 7, placeholder: "Комментарий"})
