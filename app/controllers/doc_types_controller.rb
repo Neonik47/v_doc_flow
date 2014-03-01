@@ -21,7 +21,7 @@ class DocTypesController < ApplicationController
   end
 
   def create
-    @doc_type = DocType.new(params[:doc_type])
+    @doc_type = DocType.new(doc_type_params)
     if @doc_type.save
       redirect_to @doc_type, notice: 'Doc type was successfully created.'
     else
@@ -60,4 +60,7 @@ class DocTypesController < ApplicationController
     @doc_type = DocType.find(params[:id])
   rescue Mongoid::Errors::DocumentNotFound  
   end
+  def doc_type_params
+   params.require(:doc_type).permit!
+end
 end

@@ -8,5 +8,5 @@ class DocType
   has_many :docs
 
   accepts_nested_attributes_for :lines, :reject_if => lambda { |a| a[:name].blank? }, :allow_destroy => true
-  scope :active, where(:deleted => false).order_by(:name => 1)
+  scope :active, ->{where(:deleted => false).order_by(:name => 1)}
 end

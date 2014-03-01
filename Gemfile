@@ -38,7 +38,7 @@ gem 'haml-rails'
 gem 'russian'
 gem 'devise'#, '~> 2.2.4'
 
-gem "paperclip"
-# gem "mongoid-paperclip", "~> 0.0.8", :require => "mongoid_paperclip"
+# gem "paperclip"
+gem "mongoid-paperclip", "~> 0.0.8", :require => "mongoid_paperclip"
 gem 'rmagick'
 gem 'state_machine'
