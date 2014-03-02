@@ -30,7 +30,7 @@ gem 'therubyrhino', :platforms => :ruby
 gem 'mongoid', github: 'mongoid/mongoid'
 # gem 'mongoid-grid_fs'
 gem "bson"
-gem "moped", github: "mongoid/moped"
+# gem "moped", github: "mongoid/moped"
 gem 'jquery-ui-rails'
 gem 'kaminari'
 gem 'haml'

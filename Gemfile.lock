@@ -8,15 +8,6 @@ GIT
       origin (~> 2.1)
       tzinfo (>= 0.3.37)
 
-GIT
-  remote: git://github.com/mongoid/moped.git
-  revision: e238b4a757d64d980e3137c5b57a37a1729733a9
-  specs:
-    moped (2.0.0.beta6)
-      bson (~> 2.2)
-      connection_pool (~> 1.2)
-      optionable (~> 0.2.0)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -103,6 +94,10 @@ GEM
     minitest (4.7.5)
     mongoid-paperclip (0.0.8)
       paperclip (>= 2.3.6)
+    moped (2.0.0.beta6)
+      bson (~> 2.2)
+      connection_pool (~> 1.2)
+      optionable (~> 0.2.0)
     multi_json (1.8.4)
     optionable (0.2.0)
     origin (2.1.0)
@@ -185,7 +180,6 @@ DEPENDENCIES
   less-rails
   mongoid!
   mongoid-paperclip (~> 0.0.8)
-  moped!
   rails (= 4)
   rmagick
   russian

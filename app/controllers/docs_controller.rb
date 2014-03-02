@@ -24,7 +24,7 @@ class DocsController < ApplicationController
   end
 
   def create
-    @doc = current_user.docs.new(params[:doc])
+    @doc = current_user.docs.new(doc_params)
     @doc.doc_type.lines.each{|l| @doc.doc_lines.build(l.as_document)}
 
     if @doc.save
@@ -37,7 +37,7 @@ class DocsController < ApplicationController
 
   def update
     images_to_destroy = params.delete("images_to_delete") || []
-    if @doc.update_attributes(params[:doc])
+    if @doc.update_attributes(doc_params)
       images_to_destroy.each do |image_id|
         image = @doc.images.select{|i| i.id.to_s == image_id}.first
         image.destroy if image
@@ -119,4 +119,9 @@ class DocsController < ApplicationController
     @work_log = @doc.work_logs.build(user_id: current_user.id, time: Time.now, action: action, comment: params[:comment])
     @work_log.save
   end
+
+  def doc_params
+    params.require(:doc).permit!
+  end
+
 end

@@ -30,7 +30,7 @@ class DocTypesController < ApplicationController
   end
 
   def update
-    if @doc_type.update_attributes(params[:doc_type])
+    if @doc_type.update_attributes(doc_type_params)
       redirect_to @doc_type, notice: 'Doc type was successfully updated.'
     else
       render action: "edit"
@@ -58,9 +58,9 @@ class DocTypesController < ApplicationController
 
   def set_doc_type
     @doc_type = DocType.find(params[:id])
-  rescue Mongoid::Errors::DocumentNotFound  
+  rescue Mongoid::Errors::DocumentNotFound
   end
   def doc_type_params
-   params.require(:doc_type).permit!
-end
+    params.require(:doc_type).permit!
+  end
 end
