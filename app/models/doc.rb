@@ -29,6 +29,23 @@ class Doc
   # attr_accessible :images_attributes, :doc_lines_attributes, :name,
   # :in_num, :out_num, :department, :doc_type_id
 
+  validates_presence_of :name
+  validates_uniqueness_of :name, case_sensitive: false
+  validates_length_of :name, minimum: 5, maximum: 40
+
+  validates_presence_of :in_num
+  validates_uniqueness_of :in_num, case_sensitive: false
+  validates_length_of :in_num, minimum: 3, maximum: 16
+
+  validates_presence_of :out_num
+  validates_uniqueness_of :out_num, case_sensitive: false
+  validates_length_of :out_num, minimum: 3, maximum: 16
+
+  validates_presence_of :department
+  validates_length_of :department, minimum: 5, maximum: 16
+
+  validates_presence_of :status
+
   state_machine :status, initial: :draft do
 
     state :draft #Черновик

@@ -19,7 +19,7 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(params[:user])
+    @user = User.new(user_params)
     p = SecureRandom.urlsafe_base64(10) #like "v_2avsdlnN2a7w"
     @user.password = p
     if @user.save
@@ -30,7 +30,7 @@ class UsersController < ApplicationController
   end
 
   def update
-    if @user.update_attributes(params[:user])
+    if @user.update_attributes(user_params)
       redirect_to @user, notice: 'User was successfully updated.'
     else
       render action: "edit"
@@ -69,6 +69,10 @@ class UsersController < ApplicationController
 
   def set_user
     @user = User.find(params[:id])
-  rescue Mongoid::Errors::DocumentNotFound  
+  rescue Mongoid::Errors::DocumentNotFound
+  end
+
+  def user_params
+    params.require(:user).permit!
   end
 end
