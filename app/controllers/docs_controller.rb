@@ -26,6 +26,7 @@ class DocsController < ApplicationController
   def create
     @doc = current_user.docs.new(doc_params)
     @doc.doc_type.lines.each{|l| @doc.doc_lines.build(l.as_document)}
+    @doctypes = DocType.active.to_a
 
     if @doc.save
       create_work_log(__method__)

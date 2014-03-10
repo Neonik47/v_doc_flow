@@ -14,7 +14,6 @@ class Line
   field :name, default: ""
   field :type, default: ""
   field :title, default: ""
-  field :validates, type: Hash, default: {}
 
   embedded_in :doc_type
   # belongs_to :doc_type

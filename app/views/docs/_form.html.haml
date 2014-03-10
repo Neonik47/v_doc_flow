@@ -1,10 +1,16 @@
 = form_for @doc, :html => { :multipart => true } do |f|
-  - if @doc.errors.any?
+  - @doc.errors.messages.delete(:doc_lines)
+  - d_l_e_c = @doc.doc_lines.map{|dl| dl.errors.count}.sum
+  - if @doc.errors.any? or d_l_e_c > 0
     #error_explanation
-      %h2= "#{pluralize(@doc.errors.count, "error")} prohibited this doc from being saved:"
+      %h2= t('errors.messages.not_saved', resource: "Документ", count: @doc.errors.count + d_l_e_c)
       %ul
         - @doc.errors.full_messages.each do |msg|
           %li= msg
+        - @doc.doc_lines.each do |doc_line|
+          - doc_line.errors.full_messages.each do |msg|
+            %li= msg
+
   .form-group.col-xs-9
     = f.label :name, nil, class: "col-xs-3 control-label"
     .col-xs-6
@@ -43,17 +49,17 @@
   -else
     = f.fields_for :doc_lines do |builder|
       - line = builder.object
-      - icon_class, input_class = (line["type"] == "date" ? ["calendar", "datepicker"] : ["question-sign", ""])
+      - icon_class, input_class = (line.type == "date" ? ["calendar", "datepicker"] : ["question-sign", ""])
       - field_options = {class: "form-control"}
       .form-group.col-xs-9
         = label_tag line.name, nil, class: "col-xs-3 control-label"
         .col-xs-6
           .input-group{class: input_class}
-            -case line["type"]
+            -case line.type
             -when "date"
               = builder.text_field :value, field_options
             -when "boolean"
-              = builder.check_box :value, false, field_options
+              = builder.check_box :value, field_options
             -when "integer"
               = builder.number_field :value, field_options
             -when "string"
@@ -61,7 +67,7 @@
             -else
               = builder.text_field :value, field_options
 
-            %span.input-group-addon{title: (line["title"].blank? ? "Описание поля отсутствует" : line["title"]) + "\n(#{t(line["type"])})"}
+            %span.input-group-addon{title: (line["title"].blank? ? "Описание поля отсутствует" : line["title"]) + "\n(#{line.human_type})"}
               %span{class: "glyphicon glyphicon-#{icon_class}"}
 
   .clearfix
