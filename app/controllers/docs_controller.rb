@@ -104,6 +104,24 @@ class DocsController < ApplicationController
     redirect_to docs_url
   end
 
+  def create_chat_room
+    chat_room = ChatRoom.new do |chat|
+      chat.doc_id = @doc.id
+      chat.user_id = current_user.id
+      chat.member_ids = [current_user.id]
+      chat.name = "Обсуждение документа '#{@doc.name}'"
+    end
+
+    if chat_room.save
+      chat_room.build_system_message(:create_room, current_user)
+      @doc.chat_room_id = chat_room.id
+      @doc.save
+      redirect_to chat_room_path(chat_room), notice: t('chat_created_successfull')
+    else
+      render action: "new"
+    end
+  end
+
   private
 
   def check_admin!
@@ -113,7 +131,7 @@ class DocsController < ApplicationController
   def set_doc
     @doc = Doc.find(params[:id])
   rescue Mongoid::Errors::DocumentNotFound
-
+    redirect_to root_path, alert: t('not_found') and return
   end
 
   def create_work_log(action = nil)

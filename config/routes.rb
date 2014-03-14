@@ -1,4 +1,6 @@
 VDocFlow::Application.routes.draw do
+  resources :chat_rooms
+
   resources :docs do
     member do
       post :change_responsible
@@ -9,6 +11,7 @@ VDocFlow::Application.routes.draw do
       post :to_execution
       post :to_confirmation_of_execution
       post :to_executed
+      get :create_chat_room
     end
   end
 

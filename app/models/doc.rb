@@ -17,6 +17,9 @@ class Doc
   field :department
   field :status, type: String, default: "draft"
   field :deleted, type: Boolean, default: false
+
+  field :chat_room_id, type: BSON::ObjectId, default: nil
+
   # field :responsible #ответственный
   belongs_to :doc_type
   belongs_to :user
@@ -106,4 +109,8 @@ class Doc
     self.send("can_#{event}?")
   end
 
+  def chat_room
+    return nil unless chat_room_id
+    return ChatRoom.find(chat_room_id)
+  end
 end

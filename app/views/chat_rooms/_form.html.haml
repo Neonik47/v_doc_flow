@@ -1,0 +1,17 @@
+= form_for @chat_room do |f|
+  - if @chat_room.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@chat_room.errors.count, "error")} prohibited this chat_room from being saved:"
+      %ul
+        - @chat_room.errors.full_messages.each do |msg|
+          %li= msg
+  .row
+    .form-group.col-xs-9
+      = f.label :name, nil, class: "col-xs-3 control-label"
+      .col-xs-6
+        = f.text_field :name, class: "form-control"
+  = f.hidden_field :user_id, value: current_user.id
+  = f.hidden_field :doc_id, value: params[:doc_id]
+  .actions
+    = f.submit t("save"), class: 'btn btn-success'
+    = link_to t("back"), chat_rooms_path, class: "btn btn-primary"
