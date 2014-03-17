@@ -1,14 +1,20 @@
 class ChatRoom
   include Mongoid::Document
+  include Mongoid::Timestamps::Created::Short
 
   field :name
   field :doc_id, type: BSON::ObjectId, default: nil
   field :member_ids, type: Array, default: []
   belongs_to :user
+  has_many :message_notifications
   embeds_many :messages
 
   def members
     member_ids.map{|id| User.find(id)}
+  end
+
+  def message_notifications_by_user(user)
+    return message_notifications.select{|n| self.user == user}
   end
 
   def build_system_message(action, user, diff_users = [])

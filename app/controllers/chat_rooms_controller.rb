@@ -2,14 +2,16 @@ class ChatRoomsController < ApplicationController
   before_action :set_chat_room, only: [:show, :edit, :update, :destroy, :post_message]
 
   def index
-    @chat_rooms = ChatRoom.where(member_ids: current_user.id)
+    @chat_rooms = ChatRoom.where(member_ids: current_user.id).sort_by{|c| (c.messages.last || c).send(:c_at)}.reverse
+
     @has_ntf = {}
     @chat_rooms.each do |c|
-      @has_ntf[c.id] = !MessageNotification.where(chat_room_id: c.id, user_id: User.first.id).blank?
+      @has_ntf[c.id] = !c.message_notifications_by_user(current_user).blank?
     end
   end
 
   def show
+    @chat_room.message_notifications_by_user(current_user).each{|n| n.delete }
   end
 
   def new
