@@ -2,4 +2,4 @@
   %span.label.label-warning.label-bg
     = l message.c_at, format: :short
   %hr
-  = message.body.html_safe
+  = message.body.gsub("\n", "<br>").html_safe

@@ -58,11 +58,11 @@ class UsersController < ApplicationController
   protected
 
   def check_admin!
-    redirect_to :back, alert: 'Only admins allowed!' and return unless current_user.admin?
+    redirect_to docs_path, alert: 'Only admins allowed!' and return unless current_user.admin?
   end
 
   def check_access!
-    redirect_to :back, alert: 'Only owner or admins allowed!' and return unless (current_user.id == @user.id or current_user.admin?)
+    redirect_to docs_path, alert: 'Only owner or admins allowed!' and return unless (current_user.id == @user.id or current_user.admin?)
   end
 
   private

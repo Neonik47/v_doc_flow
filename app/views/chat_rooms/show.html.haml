@@ -12,7 +12,7 @@
     #collapseOne.panel-collapse.collapse{class: "out"}
       .panel-footer
         - @chat_room.members.each do |member|
-          = member.name
+          %p= member.name
 
 
 .messages
@@ -24,3 +24,5 @@
         = render partial: "chat_rooms/system_message", locals: {message: message}
       -else
         = render partial: "chat_rooms/message", locals: {message: message}
+%hr
+= render "message_form"

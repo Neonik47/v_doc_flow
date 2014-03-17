@@ -1,2 +1,6 @@
-%p.well.bg-info
-  =message.body
+.well.well-sm
+  %span.label.label-info.label-bg
+    = l message.c_at, format: :short
+    = message.user.name
+  %div= message.body.gsub("\n", "<br>").html_safe
+

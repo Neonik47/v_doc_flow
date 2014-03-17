@@ -1,8 +1,12 @@
 class ChatRoomsController < ApplicationController
-  before_action :set_chat_room, only: [:show, :edit, :update, :destroy]
+  before_action :set_chat_room, only: [:show, :edit, :update, :destroy, :post_message]
 
   def index
     @chat_rooms = ChatRoom.where(member_ids: current_user.id)
+    @has_ntf = {}
+    @chat_rooms.each do |c|
+      @has_ntf[c.id] = !MessageNotification.where(chat_room_id: c.id, user_id: User.first.id).blank?
+    end
   end
 
   def show
@@ -13,6 +17,12 @@ class ChatRoomsController < ApplicationController
   end
 
   def edit
+  end
+
+  def post_message
+    message = @chat_room.messages.new(message_params)
+    message.save
+    redirect_to @chat_room
   end
 
   def create
@@ -41,11 +51,16 @@ class ChatRoomsController < ApplicationController
   end
 
   private
-    def set_chat_room
-      @chat_room = ChatRoom.find(params[:id])
-    end
 
-    def chat_room_params
-      params.require(:chat_room).permit!
-    end
+  def set_chat_room
+    @chat_room = ChatRoom.find(params[:id])
+  end
+
+  def chat_room_params
+    params.require(:chat_room).permit!
+  end
+
+  def message_params
+    params.require(:message).permit!
+  end
 end

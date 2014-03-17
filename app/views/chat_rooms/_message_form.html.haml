@@ -1,0 +1,5 @@
+= form_for Message.new, url: post_message_chat_room_path, method: :post do |f|
+  = f.text_area :body, class: "form-control"
+  = f.hidden_field :user_id, value: current_user.id
+  .actions
+    = f.submit t("post_message"), class: 'btn btn-success'

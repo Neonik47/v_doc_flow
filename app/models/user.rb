@@ -65,6 +65,7 @@ class User
   field :role, type: String
   field :status, type: String, default: "not_activated"
   has_many :docs
+  has_many :message_notifications
 
   validates_presence_of :name
   validates_uniqueness_of :name, case_sensitive: false

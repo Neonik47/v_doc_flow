@@ -21,10 +21,10 @@ class ChatRoom
     when :leave_room
       "Пользователь <strong>#{user.name}</strong> покинул чат."
     when :added_users
-      "Пользователь <strong>#{user.name}</strong> добавил следующих пользователей в чат (#{diff_users.size}):"+
+      "Пользователь <strong>#{user.name}</strong> добавил следующих пользователей в чат (#{diff_users.size}):\n"+
       diff_users.map{|u| u.name}.join("\n")
     when :deleted_users
-      "Пользователь <strong>#{user.name}</strong> исключил следующих пользователей из чата (#{diff_users.size}):"+
+      "Пользователь <strong>#{user.name}</strong> исключил следующих пользователей из чата (#{diff_users.size}):\n"+
       diff_users.map{|u| u.name}.join("\n")
     end
     s_m = messages.build(body: message)

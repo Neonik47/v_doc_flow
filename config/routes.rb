@@ -1,5 +1,9 @@
 VDocFlow::Application.routes.draw do
-  resources :chat_rooms
+  resources :chat_rooms do
+    member do
+      post :post_message
+    end
+  end
 
   resources :docs do
     member do
@@ -79,7 +83,7 @@ VDocFlow::Application.routes.draw do
   #     resources :products
   #   end
 
-  root :to => 'users#index'
+  root :to => 'docs#index'
 
   # See how all your routes lay out with "rake routes"
 
