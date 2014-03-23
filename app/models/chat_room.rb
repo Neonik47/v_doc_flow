@@ -9,8 +9,14 @@ class ChatRoom
   has_many :message_notifications
   embeds_many :messages
 
+  attr_reader :member_tokens
+
   def members
     member_ids.map{|id| User.find(id)}
+  end
+
+  def member_tokens=(ids)
+    self.member_ids = ids.split(",")
   end
 
   def message_notifications_by_user(user)

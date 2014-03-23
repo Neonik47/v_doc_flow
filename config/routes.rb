@@ -2,6 +2,7 @@ VDocFlow::Application.routes.draw do
   resources :chat_rooms do
     member do
       post :post_message
+      get :leave
     end
   end
 

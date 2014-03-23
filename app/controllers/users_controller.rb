@@ -5,7 +5,13 @@ class UsersController < ApplicationController
   before_filter :check_access!, only: :edit
 
   def index
-    @users = User.all
+    respond_to do |format|
+      format.html { @users = User.all }
+      format.json do
+        @users = User.where("name like ?", "%#{params[:q]}%")
+        render :json => @users.map(&:attributes)
+      end
+    end
   end
 
   def show

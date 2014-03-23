@@ -105,6 +105,7 @@ class DocsController < ApplicationController
   end
 
   def create_chat_room
+    redirect_to @doc, alert: t('.only_doc_owner') and return if @doc.user != current_user
     chat_room = ChatRoom.new do |chat|
       chat.doc_id = @doc.id
       chat.user_id = current_user.id

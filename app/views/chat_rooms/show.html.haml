@@ -2,9 +2,10 @@
   .panel.panel-default
     .panel-body
       -if @chat_room.doc_id
-        = link_to doc_path(@chat_room.doc_id), title: ('go_to_doc') do
+        = link_to doc_path(@chat_room.doc_id), title: ('.go_to_doc') do
           %span.glyphicon.glyphicon-book
       = @chat_room.name
+      = link_to t(".leave"), leave_chat_room_path(@chat_room), class: "btn btn-primary"
       = link_to t("edit"), edit_chat_room_path(@chat_room), class: "btn btn-primary"
       = link_to t("back"), chat_rooms_path, class: "btn btn-primary"
       %a{"data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#collapseOne", class: "pull-right", :title => t(".users")}
