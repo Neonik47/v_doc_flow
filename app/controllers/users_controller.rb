@@ -8,7 +8,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.html { @users = User.all }
       format.json do
-        @users = User.where("name like ?", "%#{params[:q]}%")
+        @users = User.where(name: /.*#{params[:q].mb_chars.downcase.to_s}.*/i)
         render :json => @users.map(&:attributes)
       end
     end

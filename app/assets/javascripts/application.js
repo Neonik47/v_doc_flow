@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require_tree .
 //= require bootstrap
+//= require jquery.tokeninput
 
 
 // function remove_fields(link) {

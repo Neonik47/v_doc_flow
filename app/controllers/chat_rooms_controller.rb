@@ -56,6 +56,7 @@ class ChatRoomsController < ApplicationController
   end
 
   def update
+    # raise params.inspect
     if @chat_room.update(chat_room_params)
       redirect_to @chat_room, notice: 'Chat room was successfully updated.'
     else
