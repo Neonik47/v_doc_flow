@@ -20,9 +20,9 @@ class Doc
 
   field :chat_room_id, type: BSON::ObjectId, default: nil
 
-  # field :responsible #ответственный
   belongs_to :doc_type
   belongs_to :user
+  field :responsibles, type: Array, default: [] #ответственные
   embeds_many :work_logs
   embeds_many :images, cascade_callbacks: true
   embeds_many :doc_lines, cascade_callbacks: true
@@ -112,5 +112,14 @@ class Doc
   def chat_room
     return nil unless chat_room_id
     return ChatRoom.find(chat_room_id)
+  end
+
+  def current_responsible_id
+    responsibles.last || user_id
+  end
+
+  def level
+    return 1 if responsibles.empty?
+    responsibles.size
   end
 end
