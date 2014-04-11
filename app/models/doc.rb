@@ -20,9 +20,12 @@ class Doc
 
   field :chat_room_id, type: BSON::ObjectId, default: nil
 
+  field :sender_id, type: BSON::ObjectId, default: nil
+  field :executor_id, type: BSON::ObjectId, default: nil
+  field :responsibles, type: Array, default: [] #ответственные
+
   belongs_to :doc_type
   belongs_to :user
-  field :responsibles, type: Array, default: [] #ответственные
   embeds_many :work_logs
   embeds_many :images, cascade_callbacks: true
   embeds_many :doc_lines, cascade_callbacks: true
@@ -114,12 +117,24 @@ class Doc
     return ChatRoom.find(chat_room_id)
   end
 
-  def current_responsible_id
-    responsibles.last || user_id
-  end
-
   def level
     return 1 if responsibles.empty?
     responsibles.size
   end
+
+  def current_responsible_id
+    res = case self.status
+    when "draft","rejected","on_revision","confirmation_of_execution"
+      self.sender_id
+    when "on_review", "on_execution"
+      self.executor_id
+    else
+      raise "Oops with #{self.status}"
+    end
+  end
+
+  def current_responsible?(user)
+    current_responsible_id == user.id
+  end
+
 end

@@ -25,6 +25,8 @@ class DocsController < ApplicationController
 
   def create
     @doc = current_user.docs.new(doc_params)
+    @doc.sender_id = current_user.id
+    @doc.responsibles.push(current_user.id)
     @doc.doc_type.lines.each{|l| @doc.doc_lines.build(l.as_document)}
     @doctypes = DocType.active.to_a
 
@@ -51,7 +53,12 @@ class DocsController < ApplicationController
   end
 
   def change_responsible
+    new_responsible = BSON::ObjectId.from_string(params["new_responsible"])
     @doc.change_responsible
+    @doc.responsibles.pop unless @doc.executor_id.nil?
+    @doc.responsibles.push(new_responsible)
+    @doc.executor_id = new_responsible
+    @doc.save
     create_work_log(__method__)
     redirect_to :back, notice: "change_responsible"
   end
@@ -76,6 +83,8 @@ class DocsController < ApplicationController
 
   def accept
     @doc.accept
+    @doc.sender_id, @doc.executor_id = @doc.executor_id, nil
+    @doc.save
     create_work_log(__method__)
     redirect_to :back, notice: "accept"
   end

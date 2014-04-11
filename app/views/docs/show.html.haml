@@ -23,6 +23,6 @@
 
 .btn-group
   -@doc.status_paths.events.each do |event|
-    - if @doc.can?(event)
+    - if @doc.can?(event) && @doc.current_responsible?(current_user)
       = render "/docs/event_partial", event: event
   = link_to t("back"), docs_path, class: "btn btn-primary"
