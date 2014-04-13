@@ -91,4 +91,8 @@ class User
   def human_status
   	Defines::STATUSES[status] || "Статус #{status} неопределен!"
   end
+
+  def alt_attrs
+    {"id" => self.id.to_s, "name" => self.name}
+  end
 end

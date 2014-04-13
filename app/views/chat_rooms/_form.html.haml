@@ -14,7 +14,7 @@
     .form-group.col-xs-9
       = f.label :member_tokens, "members", class: "col-xs-3 control-label"
       .col-xs-6
-        = f.text_field :member_tokens, class: "form-control", "data-pre" => @chat_room.members.map(&:attributes).to_json
+        = f.text_field :member_tokens, class: "form-control", "data-pre" => @chat_room.members.map(&:alt_attrs).to_json
 
   = f.hidden_field :user_id, value: current_user.id
   = f.hidden_field :doc_id, value: params[:doc_id]

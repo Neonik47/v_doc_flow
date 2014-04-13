@@ -61,6 +61,7 @@ $('#doc_doc_type_id').change(function(){
 $(function() {
   $("#chat_room_member_tokens").tokenInput("/users.json", {
     crossDomain: false,
+    tokenValue: "id",
     prePopulate: $("#chat_room_member_tokens").data("pre"),
     theme: "facebook"
   });
