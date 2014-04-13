@@ -13,3 +13,7 @@
         = render partial: "layouts/bootstrap_flash", locals: {flash: flash}
         = yield
     = javascript_include_tag "application"
+
+    /= stylesheet_link_tag "application", "token-input-facebook"
+    /= javascript_include_tag :defaults, "jquery.tokeninput"
+

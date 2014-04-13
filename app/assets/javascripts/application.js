@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require_tree .
 //= require bootstrap
+//= require jquery.tokeninput
 
 
 // function remove_fields(link) {
@@ -56,3 +57,11 @@ function get_fields(type_id){
 $('#doc_doc_type_id').change(function(){
   get_fields($(this).val());
 }).change();
+
+$(function() {
+  $("#chat_room_member_tokens").tokenInput("/users.json", {
+    crossDomain: false,
+    prePopulate: $("#chat_room_member_tokens").data("pre"),
+    theme: "facebook"
+  });
+});

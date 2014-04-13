@@ -8,6 +8,7 @@
  * You're free to add application-wide styles to this file and they'll appear at the top of the
  * compiled file, but it's generally better to create a new file per style scope.
  *= require bootstrap
+ *= require token-input
  *= require_self
  *= require_tree .
  */
@@ -46,4 +47,13 @@
 .work_log_modal{
   z-index: 110060 !important;
   textarea { resize:none; }
+}
+
+
+div.dog-nail{
+  display: none !important;
+}
+
+select.dog-nail{
+  display: inline !important;
 }

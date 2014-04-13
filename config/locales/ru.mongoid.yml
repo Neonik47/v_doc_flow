@@ -22,3 +22,14 @@ ru:
         status: "Статус"
         deleted: "Удален"
         doc_type: "Тип документа"
+      doc_line:
+        name: "Имя поля"
+        type: "Тип поля"
+        value: "Значение поля"
+        title: "Описание поля"
+    errors:
+      messages:
+        unknown_attribute:
+          summary: "wut?"
+          resolution: "wut2?"
+          message: "msg wut"

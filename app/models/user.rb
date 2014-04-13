@@ -16,10 +16,9 @@ class User
     }
   end
 
-
-
   scope :admins, ->  { where(:role => "admin").order_by(:name => 1) }
   scope :simple_users, -> { where(:role.ne => "admin").order_by(:name => 1) }
+  scope :enabled, -> { where(:status => "enabled").order_by(:name => 1) }
   scope :exists, -> { where(:status.ne => "deleted").order_by(:name => 1) }
   scope :deleted, -> { where(:status => "deleted").order_by(:name => 1) }
 
@@ -67,10 +66,13 @@ class User
   field :role, type: String
   field :status, type: String, default: "not_activated"
   has_many :docs
-  # has_many :work_logs
+  has_many :message_notifications
+
+  validates_presence_of :name
+  validates_uniqueness_of :name, case_sensitive: false
 
   def admin?
-  	role == "admin"
+    role == "admin"
   end
 
   def enabled?

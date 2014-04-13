@@ -10,8 +10,8 @@ class Image
 
   # attr_accessible :file, :file_file_name
 
-  #validates_attachment_presence :file
-  #validates_attachment_size :file, :less_than => 2.megabytes
-  #validates_attachment_content_type :file, :content_type => ['image/jpeg', 'image/png']
+  validates_attachment_presence :file
+  validates_attachment_size :file, :less_than => 2.megabytes
+  validates_attachment_content_type :file, :content_type => ['image/jpeg', 'image/png']
 
 end

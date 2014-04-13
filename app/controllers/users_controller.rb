@@ -5,7 +5,13 @@ class UsersController < ApplicationController
   before_filter :check_access!, only: :edit
 
   def index
-    @users = User.all
+    respond_to do |format|
+      format.html { @users = User.all }
+      format.json do
+        @users = User.where(name: /.*#{params[:q].mb_chars.downcase.to_s}.*/i)
+        render :json => @users.map(&:attributes)
+      end
+    end
   end
 
   def show
@@ -19,7 +25,7 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(params[:user])
+    @user = User.new(user_params)
     p = SecureRandom.urlsafe_base64(10) #like "v_2avsdlnN2a7w"
     @user.password = p
     if @user.save
@@ -30,7 +36,7 @@ class UsersController < ApplicationController
   end
 
   def update
-    if @user.update_attributes(params[:user])
+    if @user.update_attributes(user_params)
       redirect_to @user, notice: 'User was successfully updated.'
     else
       render action: "edit"
@@ -58,17 +64,21 @@ class UsersController < ApplicationController
   protected
 
   def check_admin!
-    redirect_to :back, alert: 'Only admins allowed!' and return unless current_user.admin?
+    redirect_to docs_path, alert: t('only_admins') and return unless current_user.admin?
   end
 
   def check_access!
-    redirect_to :back, alert: 'Only owner or admins allowed!' and return unless (current_user.id == @user.id or current_user.admin?)
+    redirect_to docs_path, alert: 'Only owner or admins allowed!' and return unless (current_user.id == @user.id or current_user.admin?)
   end
 
   private
 
   def set_user
     @user = User.find(params[:id])
-  rescue Mongoid::Errors::DocumentNotFound  
+  rescue Mongoid::Errors::DocumentNotFound
+  end
+
+  def user_params
+    params.require(:user).permit!
   end
 end

@@ -23,7 +23,7 @@ class DocTypesController < ApplicationController
   def create
     @doc_type = DocType.new(doc_type_params)
     if @doc_type.save
-      redirect_to @doc_type, notice: 'Doc type was successfully created.'
+      redirect_to @doc_type, notice: 'Тип документа успешно создан.'
     else
       render action: "new"
     end
@@ -31,7 +31,7 @@ class DocTypesController < ApplicationController
 
   def update
     if @doc_type.update_attributes(doc_type_params)
-      redirect_to @doc_type, notice: 'Doc type was successfully updated.'
+      redirect_to @doc_type, notice: 'Тип документа успешно обновлен.'
     else
       render action: "edit"
     end
@@ -53,7 +53,7 @@ class DocTypesController < ApplicationController
   private
 
   def check_admin!
-    redirect_to :back, alert: 'Only admins allowed!' and return unless current_user.admin?
+    redirect_to :back, alert: t('only_admins') and return unless current_user.admin?
   end
 
   def set_doc_type

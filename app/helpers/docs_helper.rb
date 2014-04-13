@@ -45,7 +45,7 @@ module DocsHelper
   def link_to_event(event, doc)
     res = case event
       when :edit
-        {u: edit_doc_path(doc)}
+        {u: edit_doc_path(doc), m: :get}
       when :change_responsible
         {u: change_responsible_doc_path(doc)}
       when :to_review
@@ -64,7 +64,7 @@ module DocsHelper
         {u: to_executed_doc_path(doc), c: "btn btn-success"}
     end
 
-    link_to t(event), res[:u], class: res[:c] || "btn btn-primary"
+    link_to t(event), res[:u], class: res[:c] || "btn btn-primary", method: res[:m] || :post
   end
 
 end
