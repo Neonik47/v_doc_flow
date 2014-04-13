@@ -64,7 +64,7 @@ class UsersController < ApplicationController
   protected
 
   def check_admin!
-    redirect_to docs_path, alert: 'Only admins allowed!' and return unless current_user.admin?
+    redirect_to docs_path, alert: t('only_admins') and return unless current_user.admin?
   end
 
   def check_access!

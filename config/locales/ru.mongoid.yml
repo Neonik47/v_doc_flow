@@ -27,3 +27,9 @@ ru:
         type: "Тип поля"
         value: "Значение поля"
         title: "Описание поля"
+    errors:
+      messages:
+        unknown_attribute:
+          summary: "wut?"
+          resolution: "wut2?"
+          message: "msg wut"

@@ -72,12 +72,13 @@ class Doc
     event :change_responsible do
       transition :draft => :draft # if owner
       transition :on_revision => :on_revision # if owner
-      transition :accepted => :on_review # if responsible
+      transition :accepted => :accepted # if responsible
     end
     # Отправить на рассмотрение
     event :to_review do
-      transition :draft => :on_review
-      transition :on_revision => :on_review
+      transition :accepted => :on_review , :if => lambda {|doc| doc.has_executor? && doc.current_executor.try(:role) != "engineer"}
+      transition :draft => :on_review, :if => lambda {|doc| doc.has_executor?}
+      transition :on_revision => :on_review, :if => lambda {|doc| doc.has_executor?}
     end
     # Отклонить
     event :reject do
@@ -94,7 +95,7 @@ class Doc
     end
     # Отправить на исполнение
     event :to_execution do
-      transition :accepted => :on_execution
+      transition :accepted => :on_execution, :if => lambda {|doc| doc.current_executor.try(:role) == "engineer"}
       transition :confirmation_of_execution => :on_execution
     end
     # Отправить на подтверждение исполнения
@@ -108,8 +109,24 @@ class Doc
 
   end
 
-  def can?(event)
-    self.send("can_#{event}?")
+
+  def current_sender
+    User.where(_id: sender_id).first
+  end
+
+  def current_executor
+    User.where(_id: executor_id).first
+  end
+
+  def can?(event, user)
+    w_id = case event
+    when :edit, :change_responsible, :to_review, :to_revision, :to_execution, :to_executed
+      sender_id
+    when :reject, :accept, :to_confirmation_of_execution
+      executor_id
+    end
+
+    return ( w_id == user.id || user.admin? ) && self.send("can_#{event}?")
   end
 
   def chat_room
@@ -122,19 +139,35 @@ class Doc
     responsibles.size
   end
 
-  def current_responsible_id
-    res = case self.status
-    when "draft","rejected","on_revision","confirmation_of_execution"
-      self.sender_id
-    when "on_review", "on_execution"
-      self.executor_id
+  def users_by_doc_stage
+    role = case current_sender.role
+    when "secretary"
+      "dep_head"
+    when "dep_head"
+      "deputy_head"
+    when "deputy_head"
+      "group_head"
+    when "group_head"
+      "engineer"
     else
-      raise "Oops with #{self.status}"
+      "admin"
     end
+    return User.where(role: role).enabled
   end
 
-  def current_responsible?(user)
-    current_responsible_id == user.id
-  end
+  # def current_responsible
+  #   res = case self.status
+  #   when "draft","rejected","on_revision","confirmation_of_execution"
+  #     self.sender_id
+  #   when "on_review", "on_execution"
+  #     self.executor_id
+  #   else
+  #     raise "Oops with #{self.status}"
+  #   end
+  #   return User.find(res)
+  # end
 
+  def has_executor?
+    !executor_id.nil?
+  end
 end

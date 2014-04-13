@@ -18,6 +18,7 @@ class User
 
   scope :admins, ->  { where(:role => "admin").order_by(:name => 1) }
   scope :simple_users, -> { where(:role.ne => "admin").order_by(:name => 1) }
+  scope :enabled, -> { where(:status => "enabled").order_by(:name => 1) }
   scope :exists, -> { where(:status.ne => "deleted").order_by(:name => 1) }
   scope :deleted, -> { where(:status => "deleted").order_by(:name => 1) }
 

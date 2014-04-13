@@ -49,7 +49,7 @@ class ChatRoomsController < ApplicationController
 
     if @chat_room.save
       @chat_room.build_system_message(:create_room, current_user)
-      redirect_to @chat_room, notice: 'Chat room was successfully created.'
+      redirect_to @chat_room, notice: 'Чат создан успешно.'
     else
       render action: 'new'
     end
@@ -58,7 +58,7 @@ class ChatRoomsController < ApplicationController
   def update
     # raise params.inspect
     if @chat_room.update(chat_room_params)
-      redirect_to @chat_room, notice: 'Chat room was successfully updated.'
+      redirect_to @chat_room, notice: 'Чат обновлен успешно.'
     else
       render action: 'edit'
     end
@@ -66,7 +66,7 @@ class ChatRoomsController < ApplicationController
 
   def destroy
     @chat_room.destroy
-    redirect_to chat_rooms_url, notice: 'Chat room was successfully destroyed.'
+    redirect_to chat_rooms_url, notice: 'Чат удален.'
   end
 
   private
