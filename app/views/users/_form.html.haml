@@ -7,18 +7,32 @@
       %ul
         - @user.errors.full_messages.each do |msg|
           %li= msg
-  .field
-    = f.label t("users.name")
-    %br
-    = f.text_field :name
-  .field
-    = f.label t("users.email")
-    %br
-    = f.email_field :email
-  .field
-    = f.label t("users.role")
-    %br
-    = f.select :role, options_for_select(User::Defines::ROLES.map{|role, name| [name, role]}, selected: @user.try(:role)), class: 'col-lg-6'
+  .form-group.col-xs-9
+    = f.label t("users.name"), {class: "col-xs-3 control-label"}
+    .col-xs-6
+      = f.text_field :name, {class: "form-control col-xs-5"}
+
+  .form-group.col-xs-9
+    = f.label t("users.email"), {class: "col-xs-3 control-label"}
+    .col-xs-6
+      = f.email_field :email, {class: "form-control"}
+
+  .form-group.col-xs-9
+    = f.label t("users.role"), {class: "col-xs-3 control-label"}
+    .col-xs-6
+      = f.select :role, options_for_select(User::Defines::ROLES.map{|role, name| [name, role]}, selected: @user.try(:role)), {class: "form-control"}, :'data-width' => '100%'
+
+  .form-group.col-xs-9
+    = f.label(:password, {class: "col-xs-3 control-label"})
+    .col-xs-6
+      = f.password_field(:password, {class: "form-control", autocomplete: 'off'})
+
+  .form-group.col-xs-9
+    = f.label(:password_confirmation, {class: "col-xs-3 control-label"})
+    .col-xs-6
+      = f.password_field(:password_confirmation, {class: "form-control"})
+
+  .clearfix
 
   .actions
     = f.submit t("save"), class: 'btn btn-success'

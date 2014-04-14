@@ -37,8 +37,26 @@ class UsersController < ApplicationController
   end
 
   def update
-    if @user.update_attributes(user_params)
-      redirect_to @user, notice: 'User was successfully updated.'
+
+    password_changed = !params[:user][:password].blank?
+    success =
+    if password_changed
+      password_ok = (params[:user][:password] == params[:user][:password_confirmation])
+      if password_ok
+        @user.password = params[:user][:password]
+        @user.update_without_password(params_for_update)
+      else
+        flash[:alert] = t(".passwords_not_equal")
+        @user.assign_attributes(params_for_update_with_password)
+        false
+      end
+    else
+      @user.update_without_password(params_for_update)
+    end
+
+
+    if success #@user.update_attributes(user_params)
+      redirect_to @user, notice: 'Пользователь успешно обновлен'
     else
       render action: "edit"
     end
@@ -73,6 +91,14 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def params_for_update_with_password(*additional_keys)
+    params_for_update(:password, :password_confirmation, *additional_keys)
+  end
+
+  def params_for_update(*additional_keys)
+    params.require(:user).permit(:email, :name, :role, *additional_keys)
+  end
 
   def set_user
     @user = User.find(params[:id])

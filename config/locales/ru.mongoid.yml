@@ -8,6 +8,7 @@ ru:
       user:
         email: "E-Mail"
         password: "Пароль"
+        password_confirmation: "Подтверждение пароля"
         name: "Имя"
         role: "Роль"
         status: "Статус"
