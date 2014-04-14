@@ -51,12 +51,8 @@ class ChatRoomsController < ApplicationController
 
     if @chat_room.save
       @chat_room.build_system_message(:create_room, current_user)
-<<<<<<< HEAD
-      redirect_to @chat_room, notice: 'Чат создан успешно.'
-=======
       @chat_room.build_system_message(:added_users, current_user, @chat_room.members)
-      redirect_to @chat_room, notice: 'Chat room was successfully created.'
->>>>>>> messages
+      redirect_to @chat_room, notice: 'Чат создан успешно.'
     else
       render action: 'new'
     end
