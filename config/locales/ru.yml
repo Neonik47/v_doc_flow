@@ -95,3 +95,26 @@ ru:
     edit:
       title: "Редактирование документа"
 
+  work_logs:
+    long:
+      create: "<b>%{user}</b> создал документ"
+      edit: "<b>%{user}</b> отредактировал документ"
+      change_responsible: "<b>%{user}</b> назначил ответственным <b>%{target}</b>"
+      to_review: "<b>%{user}</b> отправил документ на рассмотрение пользователю <b>%{target}</b>"
+      reject: "<b>%{user}</b> отклонил документ"
+      to_revision: "<b>%{user}</b> забрал документ на доработку"
+      accept: "<b>%{user}</b> принял документ"
+      to_execution: "<b>%{user}</b> отправил документ на исполнение пользователю <b>%{target}</b>"
+      to_confirmation_of_execution: "<b>%{user}</b> отправил документ на подтверждение исполнения пользователю <b>%{target}</b>"
+      to_executed: "<b>%{user}</b> подтвердил исполнение"
+    short:
+      create: "Создание документа"
+      edit: "Редактирование"
+      change_responsible: "Смена ответственного"
+      to_review: "На рассмотрение"
+      reject: "Отклонен"
+      to_revision: "На доработку"
+      accept: "Принят"
+      to_execution: "На исполнение"
+      to_confirmation_of_execution: "Подтверждение исполнения"
+      to_executed: "Исполнен"
