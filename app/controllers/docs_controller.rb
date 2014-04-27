@@ -60,13 +60,13 @@ class DocsController < ApplicationController
     @doc.responsibles.push(new_responsible)
     @doc.executor_id = new_responsible
     @doc.save
-    create_work_log(__method__)
+    create_work_log(__method__, new_responsible)
     redirect_to :back, notice: t("change_responsible")
   end
 
   def to_review
     @doc.to_review
-    create_work_log(__method__)
+    create_work_log(__method__, @doc.executor_id)
     redirect_to :back, notice: t("to_review")
   end
 
@@ -92,13 +92,13 @@ class DocsController < ApplicationController
 
   def to_execution
     @doc.to_execution
-    create_work_log(__method__)
+    create_work_log(__method__, @doc.executor_id)
     redirect_to :back, notice: t("to_execution")
   end
 
   def to_confirmation_of_execution
     @doc.to_confirmation_of_execution
-    create_work_log(__method__)
+    create_work_log(__method__, @doc.sender_id)
     redirect_to :back, notice: t("to_confirmation_of_execution")
   end
 
@@ -149,8 +149,8 @@ class DocsController < ApplicationController
     redirect_to root_path, alert: t('not_found') and return
   end
 
-  def create_work_log(action = nil)
-    @work_log = @doc.work_logs.build(user_id: current_user.id, time: Time.now, action: action, comment: params[:comment])
+  def create_work_log(action = nil, target_id = nil)
+    @work_log = @doc.work_logs.build(user_id: current_user.id, target_id: target_id, time: Time.now, action: action, comment: params[:comment])
     @work_log.save
   end
 

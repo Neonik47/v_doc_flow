@@ -1,7 +1,9 @@
-.work_log
-  .user= User.find(work_log.user_id).name
+- user = User.find(work_log.user_id).name
+- target = User.where(_id: work_log.target_id).first.try(:name) || "НЕ ОПРЕДЕЛЕН"
+.work_log{title: t(work_log.action, user: user, target: target, scope: "work_logs.long")}
+  .user= user
   %p
     = l(work_log.time, format: :short)
-    .label.label-warning= t(work_log.action)
+    .label.label-warning= t(work_log.action, scope: "work_logs.short")
   - if work_log.comment
     %p= raw(work_log.comment.gsub("\n", "<br>"))

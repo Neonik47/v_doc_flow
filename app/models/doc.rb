@@ -17,6 +17,7 @@ class Doc
   field :department
   field :status, type: String, default: "draft"
   field :deleted, type: Boolean, default: false
+  field :public, type: Boolean, default: false
 
   field :chat_room_id, type: BSON::ObjectId, default: nil
 
