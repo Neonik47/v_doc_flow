@@ -6,7 +6,7 @@ class ChatRoomsController < ApplicationController
   before_action :set_token_params, only: [:create, :update]
 
   def index
-    @chat_rooms = ChatRoom.where(member_ids: current_user.id).sort_by{|c| (c.messages.last || c).send(:c_at)}.reverse
+    @chat_rooms = ChatRoom.where(member_ids: current_user.id.to_s).sort_by{|c| (c.messages.last || c).send(:c_at)}.reverse
 
     @has_ntf = {}
     @chat_rooms.each do |c|
@@ -19,7 +19,7 @@ class ChatRoomsController < ApplicationController
   end
 
   def new
-    @chat_room = ChatRoom.new(member_ids:  [current_user.id])
+    @chat_room = ChatRoom.new(member_ids:  [current_user.id.to_s])
   end
 
   def edit
@@ -32,7 +32,7 @@ class ChatRoomsController < ApplicationController
   end
 
   def leave
-    if @chat_room.user == current_user.id
+    if @chat_room.user == current_user
       redirect_to chat_rooms_path, alert: t('.cannot_leave_owner') and return
     elsif @chat_room.member_ids.include?(current_user.id.to_s)
       @chat_room.build_system_message(:leave_room, current_user)
@@ -84,7 +84,7 @@ class ChatRoomsController < ApplicationController
 
   def destroy
     @chat_room.destroy
-    redirect_to chat_rooms_url, notice: 'Чат удален.'
+    redirect_to chat_rooms_path, notice: 'Чат удален.'
   end
 
   private
@@ -98,12 +98,12 @@ class ChatRoomsController < ApplicationController
   end
 
   def check_owner_abilities
-    redirect_to root_path, alert: t('.not_chat_owner') and return unless
-      @chat_room.user_id == current_user.id
+    redirect_to chat_rooms_path, alert: t('.not_chat_owner') and return unless
+      @chat_room.user == current_user
   end
 
   def check_member_abilities
-    redirect_to root_path, alert: t('.not_chat_member') and return unless
+    redirect_to chat_rooms_path, alert: t('.not_chat_member') and return unless
       @chat_room.member_ids.include?(current_user.id.to_s)
   end
 

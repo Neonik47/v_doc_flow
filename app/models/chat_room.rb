@@ -9,6 +9,8 @@ class ChatRoom
   has_many :message_notifications
   embeds_many :messages
 
+  validates_presence_of :name
+
   attr_reader :member_tokens
 
   def members

@@ -2,6 +2,7 @@ class DocsController < ApplicationController
 
   before_filter :check_admin!, only: :destroy
   before_filter :check_secretary!, only: [:new, :create]
+  before_filter :set_mode, only: :index
   #before_filter :set_doc, only: [:show, :edit, :update, :destroy,
   #                              :change_responsible, :to_review, :reject,
   #                              :to_revision, :accept, :to_execution,
@@ -10,7 +11,7 @@ class DocsController < ApplicationController
   before_filter :set_doc, except: [:index, :new, :create]
   def index
     # @docs = Doc.all and return if current_user.admin?
-    @docs = case params[:mode]
+    @docs = case @mode
     when "public"
       Doc.where(is_public: true)
     when "my_attention"
@@ -166,6 +167,11 @@ class DocsController < ApplicationController
 
   def doc_params
     params.require(:doc).permit!
+  end
+
+  def set_mode
+    mode = params.delete(:mode)
+    @mode = %w(public my_attention my_control).include?(mode) ? mode : "default"
   end
 
 end

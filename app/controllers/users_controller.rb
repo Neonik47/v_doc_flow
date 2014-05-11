@@ -1,12 +1,15 @@
 require 'securerandom'
 class UsersController < ApplicationController
   before_filter :set_user, only: [:show, :edit, :update, :toggle_status, :destroy]
-  before_filter :check_admin!, except: :show
-  before_filter :check_access!, only: :edit
+  before_filter :check_admin!, except: [:index, :show]
+  before_filter :check_access!, only: [:edit, :update]
 
   def index
     respond_to do |format|
-      format.html { @users = User.all }
+      format.html do
+        check_admin!
+        @users = User.all
+      end
       format.json do
         q = params[:q] || ""
         @users = User.where(name: /.*#{q.mb_chars.downcase.to_s}.*/i)

@@ -2,7 +2,7 @@
 
 %ul.nav.nav-tabs
   - ["default", "my_attention", "my_control", "public"].each do |mode|
-    %li{:class => ("active" if params[:mode] == mode)}= link_to t(mode, scope: "docs"), docs_path(mode: mode)
+    %li{:class => ("active" if @mode == mode)}= link_to t(mode, scope: "docs"), docs_path(mode: mode)
 
 .panel.panel-primary
   .panel-heading

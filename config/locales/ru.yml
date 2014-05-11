@@ -123,3 +123,19 @@ ru:
       to_execution: "На исполнение"
       to_confirmation_of_execution: "Подтверждение исполнения"
       to_executed: "Исполнен"
+  chat_rooms:
+    new_chat_room: "Создать новый чат"
+    index:
+      title: "Список доступных чатов"
+    show:
+      users: "Пользователи"
+      post_message: "Отправить сообщение"
+      leave: "Покинуть чат"
+    edit:
+      not_chat_owner: "Доступ запрещен! Вы должны быть создателем чата для его редактирования"
+    update:
+      cannot_be_blank: "Список пользователей не может быть пустым"
+    leave:
+      cannot_leave_owner: "Создатель чата не может его покинуть"
+      successfully: "Успешно покинул чат"
+      cannot_leave_not_member: "Вы не являетесь участником чата"
