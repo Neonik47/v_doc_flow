@@ -1,8 +1,8 @@
 %h1= t(".title")
 
 %ul.nav.nav-tabs
-  - [nil, "my_attention", "my_control", "public"].each do |mode|
-    %li{:class => ("active" if params[:mode] == mode)}= link_to t(mode, scope: "."), docs_path(mode: mode)
+  - ["default", "my_attention", "my_control", "public"].each do |mode|
+    %li{:class => ("active" if params[:mode] == mode)}= link_to t(mode, scope: "docs"), docs_path(mode: mode)
 
 .panel.panel-primary
   .panel-heading
