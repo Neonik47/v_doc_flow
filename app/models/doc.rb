@@ -16,8 +16,8 @@ class Doc
   field :out_num
   field :department
   field :status, type: String, default: "draft"
-  field :deleted, type: Boolean, default: false
-  field :public, type: Boolean, default: false
+  field :is_deleted, type: Boolean, default: false
+  field :is_public, type: Boolean, default: false
 
   field :chat_room_id, type: BSON::ObjectId, default: nil
 
@@ -119,6 +119,15 @@ class Doc
     User.where(_id: executor_id).first
   end
 
+  def current_responsible_id
+    return case self.status
+    when "draft", "rejected", "on_revision", "accepted", "confirmation_of_execution", "executed"
+      sender_id
+    when "on_review", "on_execution"
+      executor_id
+    end
+  end
+
   def can?(event, user)
     w_id = case event
     when :edit, :change_responsible, :to_review, :to_revision, :to_execution, :to_executed
@@ -126,7 +135,6 @@ class Doc
     when :reject, :accept, :to_confirmation_of_execution
       executor_id
     end
-
     return ( w_id == user.id || user.admin? ) && self.send("can_#{event}?")
   end
 
@@ -141,6 +149,7 @@ class Doc
   end
 
   def users_by_doc_stage
+    raise if current_sender.blank?
     role = case current_sender.role
     when "secretary"
       "dep_head"

@@ -9,7 +9,17 @@ class DocsController < ApplicationController
 
   before_filter :set_doc, except: [:index, :new, :create]
   def index
-    @docs = Doc.all
+    # @docs = Doc.all and return if current_user.admin?
+    @docs = case params[:mode]
+    when "public"
+      Doc.where(is_public: true)
+    when "my_attention"
+      Doc.all.select{|d| d.current_responsible_id == current_user.id}
+    when "my_control"
+      Doc.all.select{|d| d.executor_id == current_user.id}
+    else
+      Doc.or({responsibles: current_user.id}, {user_id: current_user.id})
+    end
   end
 
   def show

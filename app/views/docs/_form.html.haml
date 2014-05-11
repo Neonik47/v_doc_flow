@@ -12,6 +12,13 @@
             %li= msg
 
   .form-group.col-xs-9
+    = f.label :is_public, nil, class: "col-xs-3 control-label"
+    .col-xs-6
+      .input-group
+        = f.check_box :is_public, class: "form-control"
+        %span.input-group-addon{title: "Документ помечается как публичный и доступен для просмотра всем пользователям системы"}
+          %span.glyphicon.glyphicon-question-sign
+  .form-group.col-xs-9
     = f.label :name, nil, class: "col-xs-3 control-label"
     .col-xs-6
       .input-group
