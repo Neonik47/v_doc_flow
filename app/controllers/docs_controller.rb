@@ -9,6 +9,8 @@ class DocsController < ApplicationController
   #                              :to_confirmation_of_execution, :to_executed]
 
   before_filter :set_doc, except: [:index, :new, :create]
+  before_filter :set_doc_types, only: [:new, :create]
+
   def index
     # @docs = Doc.all and return if current_user.admin?
     @docs = case @mode
@@ -18,6 +20,11 @@ class DocsController < ApplicationController
       Doc.all.select{|d| d.current_responsible_id == current_user.id}
     when "my_control"
       Doc.all.select{|d| d.executor_id == current_user.id}
+    when "search"
+      set_classifiers
+      doc_filter_params = params[:doc_filter] || {user_id: current_user.id.to_s}
+      @doc_filter = DocFilter.new(doc_filter_params, current_user)
+      @doc_filter.search
     else
       Doc.or({responsibles: current_user.id}, {user_id: current_user.id})
     end
@@ -29,7 +36,6 @@ class DocsController < ApplicationController
 
   def new
     @doc = Doc.new
-    @doctypes = DocType.active.to_a
   end
 
   def edit
@@ -40,7 +46,6 @@ class DocsController < ApplicationController
     @doc.sender_id = current_user.id
     @doc.responsibles.push(current_user.id)
     @doc.doc_type.lines.each{|l| @doc.doc_lines.build(l.as_document)}
-    @doctypes = DocType.active.to_a
 
     if @doc.save
       create_work_log(__method__)
@@ -170,8 +175,18 @@ class DocsController < ApplicationController
   end
 
   def set_mode
-    mode = params.delete(:mode)
-    @mode = %w(public my_attention my_control).include?(mode) ? mode : "default"
+    mode = params[:mode]
+    @mode = "search" and return unless params[:doc_filter].blank?
+    @mode = %w(public my_attention my_control search).include?(mode) ? mode : "default"
   end
 
+  def set_doc_types
+    @doctypes = DocType.active.to_a
+  end
+
+  def set_classifiers
+    set_doc_types
+    @users = User.exists
+    @states = Doc.state_machine.states.map &:value
+  end
 end

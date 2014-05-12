@@ -21,7 +21,7 @@ ru:
         in_num: "Входящий номер"
         out_num: "Исходящий номер"
         department: "Отдел отправитель"
-        status: "Статус"
+        state: "Статус"
         deleted: "Удален"
         doc_type: "Тип документа"
       doc_line:
@@ -29,6 +29,8 @@ ru:
         type: "Тип поля"
         value: "Значение поля"
         title: "Описание поля"
+      doc_filter:
+        name: "Название"
     errors:
       messages:
         unknown_attribute:

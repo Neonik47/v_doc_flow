@@ -22,7 +22,7 @@ class ChatRoom
   end
 
   def message_notifications_by_user(user)
-    return message_notifications.select{|n| self.user == user}
+    return message_notifications.select{|n| n.user == user}
   end
 
   def build_system_message(action, user, diff_users = [])

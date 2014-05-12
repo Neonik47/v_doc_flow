@@ -84,12 +84,13 @@ ru:
     my_attention: "Требует внимания"
     my_control: "Мой контроль"
     public: "Публичные"
+    search: "Поиск"
 
     list: "Документы"
     new_doc: "Новый документ"
 
     name: "Имя"
-    status: "Статус"
+    state: "Статус"
     doc_type: "Тип документа"
     index:
       title: "Список документов"
@@ -99,6 +100,27 @@ ru:
       title: "Просмотр документа"
     edit:
       title: "Редактирование документа"
+
+    doc_filter_form:
+      filter: "Фильтр"
+      name: "Название"
+      in_num: "Входящий номер"
+      out_num: "Исходящий номер"
+      department: "Отдел"
+      user_id: "Создатель"
+      sender_id: "Отправитель"
+      executor_id: "Исполнитель"
+      doc_type_id: "Тип документа"
+      state: "Статус"
+
+      select_user: "Создатель не выбран"
+      select_sender: "Отправитель не выбран"
+      select_executor: "Исполнитель не выбран"
+      select_doc_type: "Тип документа не выбран"
+      select_state: "Статус не выбран"
+
+      search: "Поиск"
+      clear: "Сбросить"
 
   work_logs:
     long:
