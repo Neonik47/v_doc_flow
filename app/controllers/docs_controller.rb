@@ -21,7 +21,6 @@ class DocsController < ApplicationController
     when "my_control"
       Doc.all.select{|d| d.executor_id == current_user.id}
     when "search"
-    # raise
       set_classifiers
       doc_filter_params = params[:doc_filter] || {user_id: current_user.id.to_s}
       @doc_filter = DocFilter.new(doc_filter_params, current_user)

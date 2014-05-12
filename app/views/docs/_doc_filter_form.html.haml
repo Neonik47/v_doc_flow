@@ -61,6 +61,15 @@
                 name: "doc_filter[doc_type_id]",
                 class: 'col-xs-5'
 
+          .form-group
+            = f.label(:state, {class: "col-xs-2 control-label"})
+            .col-xs-10
+              = select_tag :state,
+                options_for_select(@states.collect{ |s| [t(s), s] }, @doc_filter.state),
+                prompt: t('.select_doc_type'),
+                name: "doc_filter[state]",
+                class: 'col-xs-5'
+
 
 
           .form-group
@@ -68,5 +77,5 @@
               %button.btn.btn-primary{type: "submit"}
                 %span.glyphicon.glyphicon-search
                 = t(".search")
-              = link_to docs_path, class: 'btn btn-default' do
+              = link_to docs_path(mode: "search"), class: 'btn btn-default' do
                 = t(".clear")

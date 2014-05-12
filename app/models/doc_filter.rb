@@ -15,7 +15,6 @@ class DocFilter
                 :name, :in_num, :out_num, :department, :current_user
 
   def initialize(params = {}, current_user)
-    puts "\n\n\n\n",params,"\n\n\n\n"
     self.current_user = current_user
     options = params || {}
     self.user_id = options[:user_id]
