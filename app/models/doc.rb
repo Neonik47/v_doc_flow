@@ -15,7 +15,7 @@ class Doc
   field :in_num
   field :out_num
   field :department
-  field :status, type: String, default: "draft"
+  field :state, type: String, default: "draft"
   field :is_deleted, type: Boolean, default: false
   field :is_public, type: Boolean, default: false
 
@@ -51,9 +51,9 @@ class Doc
   validates_presence_of :department
   validates_length_of :department, minimum: 5, maximum: 16
 
-  validates_presence_of :status
+  validates_presence_of :state
 
-  state_machine :status, initial: :draft do
+  state_machine :state, initial: :draft do
 
     state :draft #Черновик
     state :on_review #На рассмотрении
@@ -120,7 +120,7 @@ class Doc
   end
 
   def current_responsible_id
-    return case self.status
+    return case self.state
     when "draft", "rejected", "on_revision", "accepted", "confirmation_of_execution", "executed"
       sender_id
     when "on_review", "on_execution"
@@ -166,13 +166,13 @@ class Doc
   end
 
   # def current_responsible
-  #   res = case self.status
+  #   res = case self.state
   #   when "draft","rejected","on_revision","confirmation_of_execution"
   #     self.sender_id
   #   when "on_review", "on_execution"
   #     self.executor_id
   #   else
-  #     raise "Oops with #{self.status}"
+  #     raise "Oops with #{self.state}"
   #   end
   #   return User.find(res)
   # end

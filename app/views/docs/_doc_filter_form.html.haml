@@ -1,0 +1,72 @@
+.panel-group.form-group
+  .panel.panel-default
+    .panel-heading
+      %h4.panel-title
+        %a.collapsed{"data-toggle" => "collapse", href: "#filter"}
+          = t('.filter')
+          %span.glyphicon.glyphicon-resize-vertical.pull-right
+    #filter.panel-collapse.collapse
+      .panel-body.filter
+        = form_for(:doc_filter, url: docs_path(mode: "search"), method: "get", html: { class: "form-horizontal"}) do |f|
+          .form-group
+            = f.label(:name, {class: "col-xs-2 control-label"})
+            .col-xs-4
+              = f.text_field(:name, {class: "form-control"})
+          .form-group
+            = f.label(:in_num, {class: "col-xs-2 control-label"})
+            .col-xs-4
+              = f.text_field(:in_num, {class: "form-control"})
+          .form-group
+            = f.label(:out_num, {class: "col-xs-2 control-label"})
+            .col-xs-4
+              = f.text_field(:out_num, {class: "form-control"})
+          .form-group
+            = f.label(:department, {class: "col-xs-2 control-label"})
+            .col-xs-4
+              = f.text_field(:department, {class: "form-control"})
+
+          .form-group
+            = f.label(:user_id, {class: "col-xs-2 control-label"})
+            .col-xs-10
+              = select_tag :user_id,
+                options_from_collection_for_select(@users, :id, :name, @doc_filter.user_id),
+                prompt: t('.select_user'),
+                name: "doc_filter[user_id]",
+                class: 'col-xs-5'
+
+          .form-group
+            = f.label(:sender_id, {class: "col-xs-2 control-label"})
+            .col-xs-10
+              = select_tag :sender_id,
+                options_from_collection_for_select( @users, :id, :name, @doc_filter.sender_id ),
+                prompt: t('.select_sender'),
+                name: "doc_filter[sender_id]",
+                class: 'col-xs-5'
+
+          .form-group
+            = f.label(:executor_id, {class: "col-xs-2 control-label"})
+            .col-xs-10
+              = select_tag :executor_id,
+                options_from_collection_for_select( @users, :id, :name, @doc_filter.executor_id ),
+                prompt: t('.select_executor'),
+                name: "doc_filter[executor_id]",
+                class: 'col-xs-5'
+
+          .form-group
+            = f.label(:doc_type_id, {class: "col-xs-2 control-label"})
+            .col-xs-10
+              = select_tag :doc_type_id,
+                options_from_collection_for_select( @doctypes, :id, :name, @doc_filter.doc_type_id ),
+                prompt: t('.select_doc_type'),
+                name: "doc_filter[doc_type_id]",
+                class: 'col-xs-5'
+
+
+
+          .form-group
+            .col-xs-offset-2.col-xs-10
+              %button.btn.btn-primary{type: "submit"}
+                %span.glyphicon.glyphicon-search
+                = t(".search")
+              = link_to docs_path, class: 'btn btn-default' do
+                = t(".clear")

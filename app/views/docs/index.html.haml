@@ -1,9 +1,10 @@
 %h1= t(".title")
-
+=params.inspect
+-if @mode == "search"
+  =render "doc_filter_form"
 %ul.nav.nav-tabs
-  - ["default", "my_attention", "my_control", "public"].each do |mode|
+  - ["default", "my_attention", "my_control", "public", "search"].each do |mode|
     %li{:class => ("active" if @mode == mode)}= link_to t(mode, scope: "docs"), docs_path(mode: mode)
-
 .panel.panel-primary
   .panel-heading
     = t("docs.list")
@@ -11,7 +12,7 @@
     %tr
       %th= t("docs.name")
       %th= t("docs.doc_type")
-      %th= t("docs.status")
+      %th= t("docs.state")
       %th= t("action")
     - @docs.each do |doc|
       %tr
@@ -20,7 +21,7 @@
         %td
           = doc.doc_type.name
         %td
-          = t(doc.status)
+          = t(doc.state)
         %td.col-md-2
           .btn-group
             = link_to t("show"), doc, class: "btn btn-primary"

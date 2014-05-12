@@ -8,7 +8,7 @@
   .row
     .col-xs-9
       %h1= t(".title")
-      %h4= t(@doc.status)
+      %h4= t(@doc.state)
 
       %dt= t('docs.name')
       %dd= @doc.name
@@ -30,7 +30,7 @@
             =render "work_log", work_log: w_l
 
   .btn-group
-    -@doc.status_paths.events.each do |event|
+    -@doc.state_paths.events.each do |event|
       - if @doc.can?(event, current_user)
         = render "/docs/event_partial", event: event
     = link_to t("back"), docs_path, class: "btn btn-primary"
