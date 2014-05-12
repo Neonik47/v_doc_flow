@@ -47,7 +47,6 @@ class ChatRoomsController < ApplicationController
   def create
     @chat_room = ChatRoom.new(chat_room_params)
     @chat_room.member_ids = @member_ids
-    # raise @chat_room.member_ids.inspect#@member_ids.inspect
 
     if @chat_room.save
       @chat_room.build_system_message(:create_room, current_user)
@@ -59,8 +58,6 @@ class ChatRoomsController < ApplicationController
   end
 
   def update
-    # raise params[:chat_room][:member_tokens].inspect
-
     if @member_ids.blank?
       flash.now[:alert] = t('cannot_be_blank')
       render action: 'edit'
@@ -75,7 +72,6 @@ class ChatRoomsController < ApplicationController
       @chat_room.build_system_message(:added_users, current_user, added_members) unless added_members.blank?
       @chat_room.build_system_message(:deleted_users, current_user, deleted_members) unless deleted_members.blank?
       @chat_room.save
-      # raise @chat_room.member_ids.inspect
       redirect_to @chat_room, notice: 'Чат обновлен успешно.'
     else
       render action: 'edit'

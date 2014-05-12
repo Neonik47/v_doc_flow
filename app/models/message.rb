@@ -15,7 +15,6 @@ class Message
   end
 
   def build_notifications
-    # raise (chat_room.member_ids - [self.user_id.to_s]).inspect
     ( chat_room.member_ids - [self.user_id.to_s] ).each do |uid|
       self.message_notifications.create(user_id: BSON::ObjectId.from_string(uid), chat_room_id: chat_room.id)
     end
