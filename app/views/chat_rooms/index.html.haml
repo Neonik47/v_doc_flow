@@ -8,6 +8,7 @@
         %span.glyphicon.glyphicon-envelope{class: @has_ntf[chat_room.id] ? "text-primary" : "" }
       %td.col-md-9
         = chat_room.name
+        = chat_room.message_notifications.inspect
       %td.col-md-2
         .btn-group
           = link_to t("show"), chat_room, class: "btn btn-primary"

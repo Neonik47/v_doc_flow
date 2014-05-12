@@ -29,6 +29,8 @@ ru:
         type: "Тип поля"
         value: "Значение поля"
         title: "Описание поля"
+      doc_filter:
+        name: "Название"
     errors:
       messages:
         unknown_attribute:
