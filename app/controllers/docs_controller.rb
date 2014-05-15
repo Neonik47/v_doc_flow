@@ -135,7 +135,7 @@ class DocsController < ApplicationController
     chat_room = ChatRoom.new do |chat|
       chat.doc_id = @doc.id
       chat.user_id = current_user.id
-      chat.member_ids = [current_user.id]
+      chat.member_ids = [current_user.id.to_s]
       chat.name = "Обсуждение документа '#{@doc.name}'"
     end
 
