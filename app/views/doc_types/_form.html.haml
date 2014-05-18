@@ -8,10 +8,11 @@
         - @doc_type.errors.full_messages.each do |msg|
           %li= msg
   .row
-    .form-group.col-xs-9
-      = f.label :name, nil, class: "col-xs-3 control-label"
-      .col-xs-6
-        = f.text_field :name, class: "form-control"
+    .form-horizontal
+      .form-group
+        = f.label :name, nil, class: "col-xs-1 control-label"
+        .col-xs-6
+          = f.text_field :name, class: "form-control"
 
   = f.fields_for :lines do |builder|
     = render "line_fields", :f => builder
