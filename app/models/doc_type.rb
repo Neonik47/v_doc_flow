@@ -2,7 +2,7 @@ class DocType
   include Mongoid::Document
 
   field :name
-  field :is_deleted, type: Boolean, default: false
+  field :deleted, type: Boolean, default: false
 
   embeds_many :lines
   has_many :docs
