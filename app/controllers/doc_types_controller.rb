@@ -12,9 +12,7 @@ class DocTypesController < ApplicationController
 
   def new
     @doc_type = DocType.new
-    3.times do
-      line = @doc_type.lines.build
-    end
+    @doc_type.lines.build
   end
 
   def edit

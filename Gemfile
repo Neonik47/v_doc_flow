@@ -5,6 +5,9 @@ gem 'rails', '4'
 gem 'sass-rails'#,   '~> 3.2.3'
 gem 'coffee-rails'#, '~> 3.2.1'
 gem 'less-rails'
+gem 'bootstrap-sass'
+gem 'bootstrap-sass-extras', github: 'doabit/bootstrap-sass-extras', branch: 'bootstrap-3.0.0'
+gem 'font-awesome-rails'
 
 gem 'uglifier'#, '>= 1.0.3'
 
