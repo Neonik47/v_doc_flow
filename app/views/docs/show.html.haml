@@ -1,11 +1,15 @@
 .doc_show
-  -if @doc.chat_room_id
-    = link_to @doc.chat_room, {title: ('go_to_chat')} do
-      %span.glyphicon.glyphicon-comment
-  -else
-    = link_to create_chat_room_doc_path(@doc.id), {title: ('chat_rooms.new_chat_room')} do
-      %span.glyphicon.glyphicon-comment
   .row
+    .col-xs-9
+      -if @doc.chat_room_id
+        = link_to @doc.chat_room, {title: ('go_to_chat')} do
+          %span.glyphicon.glyphicon-comment
+      -else
+        = link_to create_chat_room_doc_path(@doc.id), {title: ('chat_rooms.new_chat_room')} do
+          %span.glyphicon.glyphicon-comment
+      .pull-right
+        = link_to print_doc_path(@doc), {title: t('docs.print'), class: "btn btn-sm btn-success"} do
+          %span.glyphicon.glyphicon-print
     .col-xs-9
       %h1= t(".title")
       %h4= t(@doc.state)

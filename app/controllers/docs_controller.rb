@@ -41,6 +41,11 @@ class DocsController < ApplicationController
   def edit
   end
 
+  def print
+    pdf = PdfBuilder.new(@doc)
+    send_file pdf.file, :filename => pdf.filename, x_sendfile: true
+  end
+
   def create
     @doc = current_user.docs.new(doc_params)
     @doc.sender_id = current_user.id

@@ -1,4 +1,5 @@
 module DocsHelper
+
   def event_simple?(event)
     return case event
     when :edit, :to_review, :accept, :to_executed
