@@ -1,32 +1,31 @@
-%h1= t(".title")
-
-.panel.panel-primary
-  .panel-heading
-    = t("users.list")
-  %table.table.table-hover
+%h2= t(".title")
+%br
+%table.table.table-hover
+  %tr
+    %th= t("users.name")
+    %th= t("users.role")
+    %th= t("users.status")
+    %th= t("action")
+  - @users.each do |user|
     %tr
-      %th= t("users.name")
-      %th= t("users.role")
-      %th= t("users.status")
-      %th= t("action")
-    - @users.each do |user|
-      %tr
-        %td= user.name
-        %td= user.human_role
-        %td= user.human_status
-        %td.col-md-2
-          .btn-group
-            = link_to t("show"), user, class: "btn btn-primary"
-            %button.btn.btn-primary.dropdown-toggle{"data-toggle" => "dropdown", :type => "button"}
-              %span.caret
-            %ul.dropdown-menu{:role => "menu"}
-              %li= link_to t("edit"), edit_user_path(user)
-              %li
-                -if user.enabled?
-                  = link_to t("disable"), toggle_status_user_path(user, s: 0)
-                -else
-                  = link_to t("enable"), toggle_status_user_path(user, s: 1)
-              %li
-              %li.divider
-              %li= link_to t("destroy"), user, method: :delete, data: { confirm: t("confirm") }
-= link_to t("users.new_user"), new_user_path, class: "btn btn-success"
+      %td= user.name
+      %td= user.human_role
+      %td= user.human_status
+      %td.col-md-2
+        .btn-group
+          = link_to t("show"), user, class: "btn btn-default"
+          %button.btn.btn-success.dropdown-toggle{"data-toggle" => "dropdown", :type => "button"}
+            %span.caret
+          %ul.dropdown-menu{:role => "menu"}
+            %li= link_to t("edit"), edit_user_path(user)
+            %li
+              -if user.enabled?
+                = link_to t("disable"), toggle_status_user_path(user, s: 0)
+              -else
+                = link_to t("enable"), toggle_status_user_path(user, s: 1)
+            %li
+            %li.divider
+            %li= link_to t("destroy"), user, method: :delete, data: { confirm: t("confirm") }
+= link_to new_user_path, class: "btn btn-success" do
+  %span.glyphicon.glyphicon-user
+  = t("users.new_user")

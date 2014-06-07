@@ -12,13 +12,6 @@
             %li= msg
 
   .form-group.col-xs-9
-    = f.label :is_public, nil, class: "col-xs-3 control-label"
-    .col-xs-6
-      .input-group
-        = f.check_box :is_public, class: "form-control"
-        %span.input-group-addon{title: "Документ помечается как публичный и доступен для просмотра всем пользователям системы"}
-          %span.glyphicon.glyphicon-question-sign
-  .form-group.col-xs-9
     = f.label :name, nil, class: "col-xs-3 control-label"
     .col-xs-6
       .input-group
@@ -45,6 +38,13 @@
       .input-group
         = f.text_field :department, class: "form-control"
         %span.input-group-addon{title: "Отдел отправитель"}
+          %span.glyphicon.glyphicon-question-sign
+  .form-group.col-xs-9
+    = f.label :is_public, nil, class: "col-xs-3 control-label"
+    .col-xs-6
+      .input-group
+        = f.check_box :is_public
+        %span{title: "Документ помечается как публичный и доступен для просмотра всем пользователям системы"}
           %span.glyphicon.glyphicon-question-sign
 
   -if @doc.new_record?
@@ -79,10 +79,8 @@
 
   .clearfix
   = file_field_tag('doc_images_attributes_file', multiple: true, name: "doc[images_attributes][][file]")
-
-
   .panel-group
-    .panel.panel-primary
+    .panel.panel-default
       .panel-heading
         %h4.panel-title
           %a{"data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#collapseOne"}
@@ -96,4 +94,4 @@
 
   .actions
     = f.submit t("save"), class: 'btn btn-success'
-    = link_to t("back"), docs_path, class: "btn btn-primary"
+

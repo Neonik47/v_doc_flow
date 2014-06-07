@@ -1,6 +1,6 @@
 .field.well.well-sm
-  = f.text_field :name, class: "form-control col-lg-6", placeholder: "Название поля"
-  = f.select :type, options_for_select(Line::Defines::FIELD_TYPES.map{|type, name| [name, type]}, :selected => f.object.type), class: 'col-lg-6 form-control'
   = f.hidden_field(:_destroy) + link_to_function(raw("<span class='glyphicon glyphicon-remove pull-right' title = #{"Удалить поле"}></span>"), "remove_fields(this)")
-  %br
+  .form-group.col-xs-9
+    = f.text_field :name, placeholder: 'Название поля', class: 'form-control col-lg-6'
+  = f.select :type, options_for_select(Line::Defines::FIELD_TYPES.map{|type, name| [name, type]}, :selected => f.object.type), class: 'col-lg-6 form-control'
   = f.text_area :title, rows: 2, class: "form-control", placeholder: "Краткое описание назначения поля"
