@@ -12,13 +12,6 @@
             %li= msg
 
   .form-group.col-xs-9
-    = f.label :is_public, nil, class: "col-xs-3 control-label"
-    .col-xs-6
-      .input-group
-        = f.check_box :is_public, class: "form-control"
-        %span.input-group-addon{title: "Документ помечается как публичный и доступен для просмотра всем пользователям системы"}
-          %span.glyphicon.glyphicon-question-sign
-  .form-group.col-xs-9
     = f.label :name, nil, class: "col-xs-3 control-label"
     .col-xs-6
       .input-group
@@ -46,12 +39,19 @@
         = f.text_field :department, class: "form-control"
         %span.input-group-addon{title: "Отдел отправитель"}
           %span.glyphicon.glyphicon-question-sign
+  .form-group.col-xs-9
+    = f.label :is_public, nil, class: "col-xs-3 control-label"
+    .col-xs-6
+      .input-group
+        = f.check_box :is_public
+        %span{title: "Документ помечается как публичный и доступен для просмотра всем пользователям системы"}
+          %span.glyphicon.glyphicon-question-sign
 
   -if @doc.new_record?
     .form-group.col-xs-9
       = f.label :doc_type, nil, class: "col-xs-3 control-label"
       .col-xs-6
-        = select_tag "doc[doc_type_id]", options_for_select(@doctypes.map{|dt| [dt.name, dt.id]}, :selected => @doc.doc_type_id), :id => 'doc_doc_type_id', :'data-width' => '100%'
+        = select_tag "doc[doc_type_id]", options_for_select(@doctypes.map{|dt| [dt.name, dt.id]}, :selected => @doc.doc_type_id), :id => 'doc_doc_type_id', :'data-width' => '100%', class: "input-group"
     %div{id: "doc_type_lines"}
   -else
     = f.fields_for :doc_lines do |builder|
@@ -79,10 +79,8 @@
 
   .clearfix
   = file_field_tag('doc_images_attributes_file', multiple: true, name: "doc[images_attributes][][file]")
-
-
   .panel-group
-    .panel.panel-primary
+    .panel.panel-default
       .panel-heading
         %h4.panel-title
           %a{"data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#collapseOne"}
@@ -96,4 +94,4 @@
 
   .actions
     = f.submit t("save"), class: 'btn btn-success'
-    = link_to t("back"), docs_path, class: "btn btn-primary"
+

@@ -1,15 +1,24 @@
-%h1= t(".title")
-%p
-  %b= t("users.name")
-  = @user.name
-%p
-  %b= t("users.email")
-  = @user.email
-%p
-  %b= t("users.role")
-  = @user.human_role
-%p
-  %b= t("users.status")
-  = @user.status
-= link_to t("edit"), edit_user_path(@user), class: "btn btn-primary"
-= link_to t("back"), users_path, class: "btn btn-primary"
+= link_to users_path do
+  %span.glyphicon.glyphicon-arrow-left
+  = t("back")
+
+%h2
+  = t(".title")
+%hr
+.well
+  %p
+    %b= t("users.name")
+    = @user.name
+  %p
+    %b= t("users.email")
+    = @user.email
+  %p
+    %b= t("users.role")
+    = @user.human_role
+  %p
+    %b= t("users.status")
+    = @user.status
+
+= link_to edit_user_path(@user), class: "btn btn-warning" do
+  %span.glyphicon.glyphicon-edit
+  = t("edit")

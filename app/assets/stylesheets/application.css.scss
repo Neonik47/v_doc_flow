@@ -15,6 +15,12 @@
 @import "bootstrap";
 @import "font-awesome";
 
+
+body{
+  padding-top: 70px;
+  background: asset-url('bg.png') no-repeat 5% 65px
+}
+
 .image {
 	border: 1px solid #ddd;
 	background: #eee;

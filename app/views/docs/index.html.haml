@@ -1,12 +1,11 @@
-%h1= t(".title")
+%h2= t(".title")
+%hr
 -if @mode == "search"
   =render "doc_filter_form"
 %ul.nav.nav-tabs
   - ["default", "my_attention", "my_control", "public", "search"].each do |mode|
     %li{:class => ("active" if @mode == mode)}= link_to t(mode, scope: "docs"), docs_path(mode: mode)
-.panel.panel-primary
-  .panel-heading
-    = t("docs.list")
+
   %table.table.table-hover
     %tr
       %th= t("docs.name")
@@ -30,4 +29,7 @@
               %li= link_to t("edit"), edit_doc_path(doc)
               %li.divider
               %li= link_to t("destroy"), doc, method: :delete, data: { confirm: t("confirm") }
-= link_to t("docs.new_doc"), new_doc_path, class: "btn btn-success"
+%br
+= link_to new_doc_path, class: "btn btn-success" do
+  %span.glyphicon.glyphicon-folder-open
+  = t("docs.new_doc")
