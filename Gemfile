@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '4'
 
-gem 'sass-rails'#,   '~> 3.2.3'
+gem 'sass-rails', '~> 4.0.0'
 gem 'coffee-rails'#, '~> 3.2.1'
 gem 'less-rails'
 gem 'bootstrap-sass'
@@ -45,3 +45,4 @@ gem 'devise'#, '~> 2.2.4'
 gem "mongoid-paperclip", "~> 0.0.8", :require => "mongoid_paperclip"
 gem 'rmagick'
 gem 'state_machine'
+gem 'prawn'

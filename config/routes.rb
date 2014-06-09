@@ -17,6 +17,7 @@ VDocFlow::Application.routes.draw do
       post :to_confirmation_of_execution
       post :to_executed
       get :create_chat_room
+      get :print
     end
   end
 

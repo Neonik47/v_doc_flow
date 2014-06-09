@@ -36,7 +36,7 @@ class DocTypesController < ApplicationController
   end
 
   def destroy
-    @doc_type.destroy
+    @doc_type.delete!
     redirect_to doc_types_url
   end
 

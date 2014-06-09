@@ -1,36 +1,45 @@
-.doc_show
-  -if @doc.chat_room_id
-    = link_to @doc.chat_room, {title: ('go_to_chat')} do
-      %span.glyphicon.glyphicon-comment
-  -else
-    = link_to create_chat_room_doc_path(@doc.id), {title: ('chat_rooms.new_chat_room')} do
-      %span.glyphicon.glyphicon-comment
-  .row
-    .col-xs-9
-      %h1= t(".title")
-      %h4= t(@doc.state)
 
-      %dt= t('docs.name')
-      %dd= @doc.name
-      / ---------------------------------------------------------------------------------------
-      =@doc.responsibles.map{|u| User.find(u).name}.inspect
-      %dt Отправитель
-      %dd= @doc.current_sender.try(:name)
+.row
+  .col-xs-9
+    -if @doc.chat_room_id
+      = link_to @doc.chat_room, {title: ('go_to_chat')} do
+        %span.glyphicon.glyphicon-comment
+    -else
+      = link_to create_chat_room_doc_path(@doc.id), {title: ('chat_rooms.new_chat_room')} do
+        %span.glyphicon.glyphicon-comment
+    .pull-right
+      = link_to print_doc_path(@doc), {title: t('docs.print'), class: "btn btn-sm btn-success"} do
+        %span.glyphicon.glyphicon-print
+    %h1= t(".title")
+    %h4= t(@doc.state)
 
-      %dt Исполнитель
-      %dd= @doc.current_executor.try(:name)
-      / ---------------------------------------------------------------------------------------
+    .row.well
+      .col-md-2= t('docs.name')+':'
+      .col-md-10= @doc.name
+      .col-md-2 Отправитель:
+      .col-md-10= @doc.current_sender.try(:name)
+      .col-md-2 Исполнитель:
+      .col-md-10= @doc.current_executor.try(:name)
+      .col-md-3 Входящий номер:
+      .col-md-9= @doc.in_num
+      .col-md-3 Исходящий номер:
+      .col-md-9= @doc.out_num
       -@doc.images.each do |image|
         =link_to image_tag(image.file.url(:thumb)), image.file.url
-      .clear
-    .col-xs-3
-      -unless @doc.work_logs.empty?
-        .work_logs
-          -@doc.work_logs.reverse.each do |w_l|
-            =render "work_log", work_log: w_l
+  .col-xs-3
+    -unless @doc.work_logs.empty?
+      .work_logs
+        -@doc.work_logs.reverse.each do |w_l|
+          =render "work_log", work_log: w_l
 
-  .btn-group
-    -@doc.state_paths.events.each do |event|
-      - if @doc.can?(event, current_user)
-        = render "/docs/event_partial", event: event
-    = link_to t("back"), docs_path, class: "btn btn-primary"
+- @doc.doc_lines.each do |doc|
+  .col-lg-2
+    %dt= doc.name
+  .col-lg-10
+    %dd= doc.value
+
+.btn-group
+  -@doc.state_paths.events.each do |event|
+    - if @doc.can?(event, current_user)
+      = render "/docs/event_partial", event: event
+  = link_to t("back"), docs_path, class: "btn btn-primary"
