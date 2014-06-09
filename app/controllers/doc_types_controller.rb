@@ -4,7 +4,7 @@ class DocTypesController < ApplicationController
   before_filter :set_doc_type, only: [:show, :edit, :update, :destroy, :get_lines]
 
   def index
-    @doc_types = DocType.all
+    @doc_types = DocType.active
   end
 
   def show
@@ -36,7 +36,7 @@ class DocTypesController < ApplicationController
   end
 
   def destroy
-    @doc_type.delete!
+    @doc_type.is_deleted
     redirect_to doc_types_url
   end
 
