@@ -1,12 +1,16 @@
 = form_for(@doc_type) do |f|
-  - if @doc_type.errors.any?
+  - @doc_type.errors.messages.delete(:lines)
+  - d_l_e_c = @doc_type.lines.map{|dl| dl.errors.count}.sum
+  - if @doc_type.errors.any? or d_l_e_c > 0
     #error_explanation
-      %h2
-        = pluralize(@doc_type.errors.count, "error")
-        prohibited this doc_type from being saved:
+      %h2= t('errors.messages.not_saved', resource: "Тип документа", count: @doc_type.errors.count + d_l_e_c)
       %ul
         - @doc_type.errors.full_messages.each do |msg|
           %li= msg
+        - @doc_type.lines.each do |line|
+          - line.errors.full_messages.each do |msg|
+            %li= msg
+
   .row
     .form-horizontal
       .form-group

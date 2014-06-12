@@ -10,29 +10,26 @@
     .pull-right
       = link_to print_doc_path(@doc), {title: t('docs.print'), class: "btn btn-sm btn-success"} do
         %span.glyphicon.glyphicon-print
-    %h1= t(".title")
+    %h1= @doc.name
     %h4= t(@doc.state)
 
     .row.well
-      %span
-        %dt.col-xs-4= t('docs.name')+':'
-        %dd.col-xs-8= @doc.name
-      %span
-        %dt.col-xs-4 Отправитель:
-        %dd.col-xs-8= @doc.current_sender.try(:name)
-      %span
-        %dt.col-xs-4 Исполнитель:
-        %dd.col-xs-8= @doc.current_executor.try(:name)
-      %span
-        %dt.col-xs-4 Входящий номер:
-        %dd.col-xs-8= @doc.in_num
-      %span
-        %dt.col-xs-4 Исходящий номер:
-        %dd.col-xs-8= @doc.out_num
+      %span.col-xs-12
+        %dt.col-xs-3 Отправитель:
+        %dd.col-xs-9= @doc.current_sender.try(:name) || '-'
+      %span.col-xs-12
+        %dt.col-xs-3 Исполнитель:
+        %dd.col-xs-9= @doc.current_executor.try(:name) || '-'
+      %span.col-xs-12
+        %dt.col-xs-3 Входящий номер:
+        %dd.col-xs-9= @doc.in_num || '-'
+      %span.col-xs-12
+        %dt.col-xs-3 Исходящий номер:
+        %dd.col-xs-9= @doc.out_num || '-'
       - @doc.doc_lines.each do |doc|
-        %span
-          %dt.col-xs-4= doc.name
-          %dd.col-xs-8= doc.value
+        %span.col-xs-12
+          %dt.col-xs-3= doc.name
+          %dd.col-xs-9= doc.value || '-'
       -@doc.images.each do |image|
         =link_to image_tag(image.file.url(:thumb)), image.file.url
 

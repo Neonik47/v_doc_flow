@@ -15,6 +15,10 @@ ru:
       doc_type:
         name: "Имя"
         deleted: "Удален"
+      line:
+        name: "Название поля"
+        type: "Тип поля"
+        title: "Описание поля"
       doc:
         is_public: "Публичный документ"
         name: "Имя"
