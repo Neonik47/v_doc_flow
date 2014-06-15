@@ -23,12 +23,16 @@
             = link_to docs_path do
               %span.glyphicon.glyphicon-file
               = t('.docs')
+              - unless current_user.doc_notifications.blank?
+                = current_user.doc_notifications.count + current_user.doc_change_notifications.count
+
         %ul.nav.navbar-nav.navbar-right
           %li
             = link_to chat_rooms_path do
               - unless current_user.message_notifications.blank?
                 %span.glyphicon.glyphicon-envelope.text-primary
                   = current_user.message_notifications.count
+
               - else
                 %span.glyphicon.glyphicon-envelope
 

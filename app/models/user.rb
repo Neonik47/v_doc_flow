@@ -67,6 +67,8 @@ class User
   field :status, type: String, default: "not_activated"
   has_many :docs
   has_many :message_notifications
+  has_many :doc_notifications
+  has_many :doc_change_notifications
 
   validates_presence_of :name
   validates_uniqueness_of :name, case_sensitive: false

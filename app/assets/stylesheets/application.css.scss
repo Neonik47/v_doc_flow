@@ -15,7 +15,6 @@
 @import "bootstrap";
 @import "font-awesome";
 
-
 body{
   padding-top: 70px;
   background: asset-url('bg.png') no-repeat 5% 65px
@@ -50,6 +49,14 @@ body{
       padding: 0;
     }
   }
+}
+
+new_doc_label {
+  color: #ff0000;
+}
+
+change_doc_label {
+  color: blue;
 }
 
 .work_log_modal{

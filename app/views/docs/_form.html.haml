@@ -48,11 +48,15 @@
           %span.glyphicon.glyphicon-question-sign
 
   -if @doc.new_record?
+
+
     .form-group.col-xs-9
       = f.label :doc_type, nil, class: "col-xs-3 control-label"
-      .col-xs-6
+      .col-xs-5
         = select_tag "doc[doc_type_id]", options_for_select(@doctypes.map{|dt| [dt.name, dt.id]}, :selected => @doc.doc_type_id), :id => 'doc_doc_type_id', :'data-width' => '100%', class: "input-group"
     %div{id: "doc_type_lines"}
+
+
   -else
     = f.fields_for :doc_lines do |builder|
       - line = builder.object

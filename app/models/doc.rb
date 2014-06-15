@@ -27,6 +27,9 @@ class Doc
 
   belongs_to :doc_type
   belongs_to :user
+  has_many   :doc_notifications
+  has_many   :doc_change_notifications
+
   embeds_many :work_logs
   embeds_many :images, cascade_callbacks: true
   embeds_many :doc_lines, cascade_callbacks: true
@@ -52,6 +55,9 @@ class Doc
   validates_length_of :department, minimum: 5, maximum: 16
 
   validates_presence_of :state
+
+  after_create :create_notifications
+  after_update :create_change_notifications
 
   state_machine :state, initial: :draft do
 
@@ -110,6 +116,17 @@ class Doc
 
   end
 
+  def create_notifications
+    ( [self.user_id.to_s] ).each do |doc_id|
+      self.doc_notifications.create(user_id: BSON::ObjectId.from_string(doc_id))
+    end
+  end
+
+  def create_change_notifications
+    ( [self.user_id.to_s] ).each do |doc_id|
+      self.doc_change_notifications.create(user_id: BSON::ObjectId.from_string(doc_id))
+    end
+  end
 
   def current_sender
     User.where(_id: sender_id).first
@@ -163,6 +180,14 @@ class Doc
       "admin"
     end
     return User.where(role: role).enabled
+  end
+
+  def doc_notifications_by_user(user)
+    return doc_notifications.select{|n| n.user == user}
+  end
+
+  def doc_change_notifications_by_user(user)
+    return doc_change_notifications.select{|n| n.user == user}
   end
 
   # def current_responsible

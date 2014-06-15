@@ -1,6 +1,7 @@
 class DocsController < ApplicationController
 
   before_filter :check_admin!, only: :destroy
+  before_action :clean_doc_notifications, only: [:show]
   before_filter :check_secretary!, only: [:new, :create]
   before_filter :set_mode, only: :index
   #before_filter :set_doc, only: [:show, :edit, :update, :destroy,
@@ -51,10 +52,10 @@ class DocsController < ApplicationController
     @doc.sender_id = current_user.id
     @doc.responsibles.push(current_user.id)
     @doc.doc_type.lines.each{|l| @doc.doc_lines.build(l.as_document)}
-
+    @doc.doc_notifications.new
     if @doc.save
       create_work_log(__method__)
-      redirect_to edit_doc_path(@doc), notice: 'Документ успешно создан.'
+      redirect_to docs_path, notice: 'Документ успешно создан.'
     else
       render action: "new"
     end
@@ -68,7 +69,7 @@ class DocsController < ApplicationController
         image.destroy if image
       end
       create_work_log(__method__)
-      redirect_to @doc, notice: 'Документ успешно обновлен.'
+      redirect_to docs_path, notice: 'Документ успешно обновлен.'
     else
       render action: "edit"
     end
@@ -84,6 +85,8 @@ class DocsController < ApplicationController
     create_work_log(__method__, new_responsible)
     redirect_to :back, notice: t("change_responsible")
   end
+
+
 
   def to_review
     @doc.to_review
@@ -168,6 +171,12 @@ class DocsController < ApplicationController
     @doc = Doc.find(params[:id])
   rescue Mongoid::Errors::DocumentNotFound
     redirect_to root_path, alert: t('not_found') and return
+  end
+
+  def clean_doc_notifications
+    @doc = Doc.find(params[:id])
+    @doc.doc_notifications_by_user(current_user).each{|n| n.delete }
+    @doc.doc_change_notifications_by_user(current_user).each{|n| n.delete }
   end
 
   def create_work_log(action = nil, target_id = nil)

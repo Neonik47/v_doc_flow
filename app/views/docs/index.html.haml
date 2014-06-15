@@ -16,8 +16,13 @@
       %tr
         %td
           = doc.name
+          - if !doc.doc_notifications.blank?
+            %new_doc_label новый
+          - elsif !doc.doc_change_notifications.blank?
+            %change_doc_label изменен
         %td
           = doc.doc_type.name
+
         %td
           = t(doc.state)
         %td.col-md-2
