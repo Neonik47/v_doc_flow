@@ -28,7 +28,10 @@ class DocTypesController < ApplicationController
   end
 
   def update
+    # raise params.inspect
     if @doc_type.update_attributes(doc_type_params)
+      @doc_type.print_settings = params[:print_settings] || {}
+      @doc_type.save
       redirect_to @doc_type, notice: 'Тип документа успешно обновлен.'
     else
       render action: "edit"

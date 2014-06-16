@@ -21,6 +21,86 @@
   = f.fields_for :lines do |builder|
     = render "line_fields", :f => builder
   %p= link_to_add_fields "Добавить поле", f, :lines
+  %hr
+  %h4 Шаблон печати типа документа
+  .well
+    - print_settings_data = DocType::PrintSettingsData
+    - print_settings = @doc_type.print_settings
+    =@doc_type.print_settings.inspect
+    .print_head
+      - print_settings_head = print_settings["head"] || {}
+      .row
+        .form-horizontal
+          .form-group
+            = label_tag :print_settings_head,"Шапка документа", class: "col-xs-2 control-label"
+            .col-xs-6
+              - checked = print_settings.blank? || !print_settings["head"].blank?
+              = check_box_tag "print_settings[head][head]", "1", checked
+          .form-group
+            = label_tag :print_settings_head_position, "Расположение:", class: "col-xs-2 control-label"
+            .col-xs-6
+              = select_tag "print_settings[head][position]", options_for_select(print_settings_data[:head][:positions].collect{|key, value| [value, key]}, print_settings_head["position"])
+          .form-group
+            = label_tag :print_settings_head_font_size, "Размер шрифта:", class: "col-xs-2 control-label"
+            .col-xs-6
+              = select_tag "print_settings[head][font_size]", options_for_select(8..18, print_settings_head["font_size"] || 10)
+          .form-group
+            = label_tag :print_settings_head_case, "Регистр:", class: "col-xs-2 control-label"
+            .col-xs-6
+              = select_tag "print_settings[head][case]", options_for_select(print_settings_data[:head][:cases].collect{|key, value| [value, key]}, print_settings_head["case"])
+          .form-group
+            = label_tag :print_settings_head_text, "Текст:", class: "col-xs-2 control-label"
+            .col-xs-4
+              = text_area_tag "print_settings[head][text]", print_settings_head["text"], {class: "form-control", rows: 5, placeholder: "Текст шапки. Можно использовать %{переменная}"}
+      %hr
+
+    .print_title
+      - print_settings_title = print_settings["title"] || {}
+      .row
+        .form-horizontal
+          .form-group
+            = label_tag :print_settings_title,"Заголовок", class: "col-xs-2 control-label"
+            .col-xs-6
+              - checked = print_settings.blank? || !print_settings["title"].blank?
+              = check_box_tag "print_settings[title][title]", "1", checked
+          .form-group
+            = label_tag :print_settings_title_font_size, "Размер шрифта:", class: "col-xs-2 control-label"
+            .col-xs-6
+              = select_tag "print_settings[title][font_size]", options_for_select(8..18, print_settings_title["font_size"] || 12)
+          .form-group
+            = label_tag :print_settings_title_case, "Регистр:", class: "col-xs-2 control-label"
+            .col-xs-6
+              = select_tag "print_settings[title][case]", options_for_select(print_settings_data[:title][:cases].collect{|key, value| [value, key]}, print_settings_title["case"])
+          .form-group
+            = label_tag :print_settings_title_text, "Текст:", class: "col-xs-2 control-label"
+            .col-xs-7
+              = text_area_tag "print_settings[title][text]", print_settings_title["text"], {class: "form-control", rows: 1, placeholder: "Текст заголовка. Можно использовать %{переменная}"}
+      %hr
+
+    .print_body
+      - print_settings_body = print_settings["body"] || {}
+      .row
+        .form-horizontal
+          .form-group
+            = label_tag :print_settings_body,"Содержимое документа", class: "col-xs-2 control-label"
+            .col-xs-6
+              - checked = print_settings.blank? || !print_settings_body.blank?
+              = check_box_tag "print_settings[body][body]", "1", checked
+          .form-group
+            = label_tag :print_settings_body_font_size, "Размер шрифта:", class: "col-xs-2 control-label"
+            .col-xs-6
+              = select_tag "print_settings[body][font_size]", options_for_select(8..18, print_settings_body["font_size"] || 10)
+          .form-group
+            = label_tag :print_settings_body_case, "Регистр:", class: "col-xs-2 control-label"
+            .col-xs-6
+              = select_tag "print_settings[body][case]", options_for_select(print_settings_data[:body][:cases].collect{|key, value| [value, key]}, print_settings_body["position"])
+          .form-group
+            = label_tag :print_settings_body_text, "Текст:", class: "col-xs-2 control-label"
+            .col-xs-9
+              = text_area_tag "print_settings[body][text]", print_settings_body["text"], {class: "form-control", rows: 20, placeholder: "Текст документа. Можно использовать %{переменная}"}
+      %hr
+
+
 
   .actions
     = f.submit t("save"), class: 'btn btn-success'

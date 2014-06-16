@@ -21,7 +21,7 @@ class Line
   validates_presence_of :name
   validates_uniqueness_of :name, case_sensitive: false
   #в виду вложенности в документ, уникальность поля будет только в рамках документа (по идее)
-  validates_length_of :name, maximum: 20
+  validates_length_of :name, maximum: 40
 
   validates_presence_of :type
 

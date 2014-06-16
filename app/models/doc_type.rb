@@ -1,8 +1,26 @@
 class DocType
   include Mongoid::Document
 
+  PrintSettingsData =
+    {
+      head: {
+        positions: {right: "Справа", centered: "По центру", centered_in_width: "По всей ширине", left: "Слева"},
+        cases: {original: "Оригинальный", up: "ВЕРХНИЙ", down: "нижний"}
+      },
+      title: {
+        cases: {original: "Оригинальный", up: "ВЕРХНИЙ"}
+      },
+      body: {
+        cases: {original: "Оригинальный", up: "ВЕРХНИЙ"}
+      },
+      footer: {
+
+      }
+    }
+
   field :name
   field :is_deleted, type: Boolean, default: false
+  field :print_settings, type: Hash, default: {}
 
   embeds_many :lines
   has_many :docs
