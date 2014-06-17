@@ -56,8 +56,16 @@ class PdfBuilder
         "Verdana" => {
           :bold => "#{Rails.root}/vendor/fonts/verdanab.ttf",
           :italic => "#{Rails.root}/vendor/fonts/verdanai.ttf",
-          :normal  => "#{Rails.root}/vendor/fonts/verdana.ttf" })
+          :normal  => "#{Rails.root}/vendor/fonts/verdana.ttf"
+        },
+        "FreeMono" => {
+          :normal  => "#{Rails.root}/vendor/fonts/FreeMono.ttf",
+          :bold => "#{Rails.root}/vendor/fonts/FreeMonoBold.ttf",
+          :italic => "#{Rails.root}/vendor/fonts/FreeMonoOblique.ttf",
+          :bold_italic  => "#{Rails.root}/vendor/fonts/FreeMonoBoldOblique.ttf"
+        })
       font "Verdana", :size => 12
+      default_leading 10
 
 
       text_box doc.name, align: :justify, width: 200, at: [300, cursor], size: 16; move_down 150
@@ -79,11 +87,18 @@ class PdfBuilder
     Prawn::Document.generate(file_path) do
       font_families.update(
         "Verdana" => {
+          :normal  => "#{Rails.root}/vendor/fonts/verdana.ttf",
           :bold => "#{Rails.root}/vendor/fonts/verdanab.ttf",
-          :italic => "#{Rails.root}/vendor/fonts/verdanai.ttf",
-          :normal  => "#{Rails.root}/vendor/fonts/verdana.ttf"
+          :italic => "#{Rails.root}/vendor/fonts/verdanai.ttf"
+        },
+        "FreeMono" => {
+          :normal  => "#{Rails.root}/vendor/fonts/FreeMono.ttf",
+          :bold => "#{Rails.root}/vendor/fonts/FreeMonoBold.ttf",
+          :italic => "#{Rails.root}/vendor/fonts/FreeMonoOblique.ttf",
+          :bold_italic  => "#{Rails.root}/vendor/fonts/FreeMonoBoldOblique.ttf"
         }
       )
+      default_leading 10
 
 =begin
 {
@@ -113,7 +128,7 @@ class PdfBuilder
 
       head_settings = settings["head"] || {}
       unless head_settings.blank? or !head_settings.is_a?(Hash)
-        font "Verdana", :size => head_settings["font_size"].to_i || 10
+        font "FreeMono", :size => head_settings["font_size"].to_i || 10
         head_text = case head_settings["case"]
         when "up"
           (head_settings["text"] % doc_attrs)#.upcase
@@ -129,11 +144,12 @@ class PdfBuilder
         when "left"
           text_box head_text, align: :justify, width: 200, at: [0, cursor], inline_format: true
         when "centered"
-          text head_text, align: :center, inline_format: true
+          text_box head_text, align: :center, width: 500, at: [0, cursor], inline_format: true
+          # text_box head_text, align: :center, inline_format: true
         when "centered_in_width"
           text_box head_text, align: :justify, width: 500, at: [0, cursor], inline_format: true
         end
-        move_down 150
+        move_down 50
       end
 
       # Заголовок
@@ -141,7 +157,7 @@ class PdfBuilder
       title_settings = settings["title"] || {}
       unless title_settings.blank? or !title_settings.is_a?(Hash)
       # text title_settings.inspect; move_down 20;
-        font "Verdana", :size => title_settings["font_size"].to_i || 12
+        font "FreeMono", :size => title_settings["font_size"].to_i || 12
         title_text = case title_settings["case"]
         when "up"
           (title_settings["text"] % doc_attrs)#.upcase
@@ -155,7 +171,7 @@ class PdfBuilder
 
       body_settings = settings["body"] || {}
       unless body_settings.blank? or !body_settings.is_a?(Hash)
-        font "Verdana", :size => body_settings["font_size"].to_i || 10
+        font "FreeMono", :size => body_settings["font_size"].to_i || 10
         body_text = case body_settings["case"]
         when "up"
           (body_settings["text"] % doc_attrs)#.upcase
@@ -165,6 +181,7 @@ class PdfBuilder
         text body_text, align: :left, inline_format: true; move_down 30
       end
 
+        text "колонтитул временно отсутствует", inline_format: true
       # Н колонтитул
     end
   end
